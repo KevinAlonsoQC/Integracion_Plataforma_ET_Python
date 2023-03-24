@@ -61,3 +61,36 @@ class Ventas(models.Model):
     productos_vendidos=models.IntegerField(verbose_name='Productos_Vendidos_Mes', null=True)
     productos_devueltos=models.IntegerField(verbose_name='Productos_Devueltos_Mes', null=True)
     mes=models.DateField(verbose_name="Datos_Mes", null=False)
+
+class Producto(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    nombre=models.CharField(max_length=100, verbose_name='Nombre', null=False)
+    descripcion=models.TextField(verbose_name='Descripcion', null=True)
+    precio=models.IntegerField(verbose_name='Precio', null=False)
+    talla=models.CharField(max_length=10, verbose_name='Talla', null=False)
+    color=models.CharField(max_length=20, verbose_name='Color', null=False)
+class Categorías(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    r_mujer=models.TextField(verbose_name='Ropa para mujer', null=True)
+    r_hombre=models.TextField(verbose_name='Ropa para hombre', null=True)
+    r_niño=models.TextField(verbose_name='Ropa para niño', null=True)
+    calzado=models.CharField(max_length=10, verbose_name='Calzado', null=False)
+    accesorios=models.TextField(verbose_name='Accesorios', null=True)
+class Clientes(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    nombre=models.CharField(max_length=50, verbose_name='Nombre', null=False)
+    direccion=models.CharField(max_length=50, verbose_name='Dirección', null=False)
+    numero=models.CharField(max_length=11, verbose_name='Numero', null=False)
+    correo=models.CharField(max_length=100, verbose_name='Correo', null=False)
+class Ordenes(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    F_orden=models.TextField(verbose_name='Fecha de orden', null=True)
+    N_orden=models.CharField(max_length=100, verbose_name='Numero de orden', null=False)
+    C_orden=models.TextField(verbose_name='Cliente que realizo la orden', null=False)
+    P_comprados=models.CharField(max_length=100, verbose_name='Productos comprados', null=False)
+    Precio_total=models.CharField(max_length=250, verbose_name='Precio total', null=False)
+    MD_pago=models.CharField(max_length=30, verbose_name='Metodo de pago', null=False)
