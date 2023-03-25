@@ -7,10 +7,15 @@ from django.db import models
 
 #models.ForeignKey(Class_Relacionada, on_delete=models.CASCADE)
 
+class Sexo(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    sexo=models.TextField(verbose_name='Sexo', null=True)
+    desc=models.TextField(verbose_name='Descripcion', null=True)
+
 class Continente(models.Model):
     id = models.AutoField(primary_key=True)
     continente=models.CharField(unique=True, max_length=255, verbose_name='Continente', null=False)
-
 
 class Pais(models.Model):
     id = models.AutoField(primary_key=True)
@@ -89,12 +94,10 @@ class Empleado(models.Model):
     email=models.EmailField(unique=True, max_length=100, verbose_name='Email', null=False)
     password=models.CharField(max_length=100, verbose_name='Contraseña', null=False)
 
-    sexo=models.CharField(max_length=1,verbose_name='Sexo', null=False) 
+    sexo=models.ForeignKey(Sexo, on_delete=models.CASCADE)
     celular=models.CharField(max_length=9, verbose_name='Celular', null=False) 
     edad=models.IntegerField(verbose_name='Edad', null=False) 
-    
-    pais=models.ForeignKey(Pais, on_delete=models.CASCADE) #ForeignKey
-    ciudad=models.ForeignKey(Ciudad, on_delete=models.CASCADE) #ForeignKey
+
     comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE) #ForeignKey
 
     nivel_staff=models.IntegerField(verbose_name='Nivel Staff', null=True, default=0) #ForeignKey 
@@ -109,8 +112,6 @@ class Proovedor(models.Model):
     celular_proovedor=models.CharField(max_length=15, verbose_name='Celular_Proovedor', null=False) 
 
     tipo_proovedor=models.ForeignKey(Tipo_Proovedor, on_delete=models.CASCADE, null=True) #ForeignKey
-    pais=models.ForeignKey(Pais, on_delete=models.CASCADE) #ForeignKey
-    ciudad=models.ForeignKey(Ciudad, on_delete=models.CASCADE) #ForeignKey
     comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE) #ForeignKey
 
 class Ventas(models.Model):
@@ -127,12 +128,6 @@ class Categoria(models.Model):
     id = models.AutoField(primary_key=True)
 
     tipo_categoria=models.TextField(verbose_name='Tipo_Categoria', null=True)
-    desc=models.TextField(verbose_name='Descripcion', null=True)
-
-class Sexo(models.Model):
-    id = models.AutoField(primary_key=True)
-
-    sexo=models.TextField(verbose_name='Sexo', null=True)
     desc=models.TextField(verbose_name='Descripcion', null=True)
 
 class Edad(models.Model):
@@ -166,32 +161,46 @@ class Clientes(models.Model):
     email=models.EmailField(unique=True, max_length=100, verbose_name='Email', null=False)
     password=models.CharField(max_length=100, verbose_name='Contraseña', null=False)
 
-    sexo=models.CharField(max_length=1,verbose_name='Sexo', null=False) 
+    sexo=models.ForeignKey(Sexo, on_delete=models.CASCADE)
     celular=models.CharField(max_length=9, verbose_name='Celular', null=False) 
     edad=models.IntegerField(verbose_name='Edad', null=False) 
     
-    pais=models.ForeignKey(Pais, on_delete=models.CASCADE) #ForeignKey
-    ciudad=models.ForeignKey(Ciudad, on_delete=models.CASCADE) #ForeignKey
     comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE) #ForeignKey
 
+class Tipo_Estado(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    estado=models.CharField(max_length=100, verbose_name='Tipo_Estado', null=False)
+    desct=models.CharField(max_length=100, verbose_name='Descripcion', null=False)
 
 class Ordenes(models.Model):
     id = models.AutoField(primary_key=True)
     numero_orden=models.CharField(max_length=100, verbose_name='Numero_Orden', null=False)
-    productos_comprados=models.CharField(max_length=100, verbose_name='Productos_Comprados', null=False)
     precio_total=models.CharField(max_length=250, verbose_name='Precio_Total', null=False)
     fecha_orden=models.DateField(auto_now_add=True, verbose_name="Fecha_Orden", null=False)
+
+    estado=models.ForeignKey(Tipo_Estado, on_delete=models.CASCADE)  #ForeignKey
 
     tipo_pago=models.ForeignKey(Tipo_Pago, on_delete=models.CASCADE)  #ForeignKey
     cliente_orden=models.ForeignKey(Clientes, on_delete=models.CASCADE)#ForeignKey
 
+class Detalle_Orden(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    numero_orden=models.ForeignKey(Ordenes, on_delete=models.CASCADE)  #ForeignKey
+    producto=models.ForeignKey(Producto, on_delete=models.CASCADE)  #ForeignKey
+
+    cantidad=models.IntegerField(verbose_name="Cantidad_Producto", null=False)
+    precio_unitario=models.IntegerField(verbose_name="Precio_Por_Unidad", null=False)
+    precio_total=models.IntegerField(verbose_name="Precio_Total", null=False)
+    fecha_orden=models.DateField(auto_now_add=True, verbose_name="Fecha_Orden", null=False)
+    
 class Inventario(models.Model):
     id = models.AutoField(primary_key=True)
     
     producto=models.ForeignKey(Producto, on_delete=models.CASCADE) #ForeignKey
-
     descripcion=models.TextField(verbose_name='Descripcion', null=True)
-    precio=models.IntegerField(verbose_name='Precio', null=False)
+
     stock_disponible=models.IntegerField(verbose_name='Stock_Disponible', null=False) 
     stock_en_camino=models.IntegerField(verbose_name='Stock_En_Camino', null=False) 
     stock_en_espera=models.IntegerField(verbose_name='Stock_En_Espera', null=False) 
