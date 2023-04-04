@@ -214,6 +214,23 @@ class Tipo_Envio(models.Model):
     tipo=models.CharField(max_length=100, verbose_name='Despacho_Retiro', null=False)
     desct=models.CharField(max_length=100, verbose_name='Descripcion', null=False)
 
+class Tipo_Hogar(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    tipo=models.CharField(max_length=100, verbose_name='Casa_Depto_Otro', null=False)
+    desct=models.CharField(max_length=100, verbose_name='Descripcion', null=False)
+
+
+class Direcciones_Clientes(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    direccion=models.CharField(max_length=100, verbose_name='Direccion_Casa', null=False)
+    otros=models.TextField(verbose_name='Otros', null=True)
+
+    cliente=models.ForeignKey(Clientes, on_delete=models.CASCADE)#ForeignKey
+    comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE)  #ForeignKey
+    tipo_hogar=models.ForeignKey(Tipo_Hogar, on_delete=models.CASCADE)  #ForeignKey
+
 
 class Orden(models.Model):
     id = models.AutoField(primary_key=True)
@@ -225,8 +242,8 @@ class Orden(models.Model):
     tipo_envio=models.ForeignKey(Tipo_Envio, on_delete=models.CASCADE)  #ForeignKey
     tipo_pedido=models.ForeignKey(Tipo_Pedido, on_delete=models.CASCADE)  #ForeignKey
 
-    comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE)  #ForeignKey
-
+    #Este está en NULL TRUE, porque si es retiro presencial, no debería marcar una sucursal
+    direccion=models.ForeignKey(Direcciones_Clientes, on_delete=models.CASCADE, null=True)#ForeignKey
     #Este está en NULL TRUE, porque si el pago es online, no debería marcar una sucursal
     sucursal=models.ForeignKey(Sucursal, on_delete=models.CASCADE, null=True)#ForeignKey
     #Este está en NULL TRUE, porque si el pago es online, no debería marcar un vendedor
