@@ -50,14 +50,14 @@ class Tipo_Producto(models.Model):
 class Banco(models.Model):
     id = models.AutoField(primary_key=True)
 
-    nombre_banco=models.CharField(nique=True,max_length=255, verbose_name='Nombre_Banco', null=False)
+    nombre_banco=models.CharField(unique=True,max_length=255, verbose_name='Nombre_Banco', null=False)
     ciudad_banco=models.ForeignKey(Ciudad,on_delete=models.CASCADE, null=True)
     pais_banco=models.ForeignKey(Pais,on_delete=models.CASCADE, null=True)
 
 class Tipo_Tarjeta(models.Model):
     id = models.AutoField(primary_key=True)
 
-    tipo_tarjeta=models.CharField(nique=True,max_length=255, verbose_name='Tipo_Tarjeta', null=False)
+    tipo_tarjeta=models.CharField(unique=True,max_length=255, verbose_name='Tipo_Tarjeta', null=False)
     desc_tipo_pago=models.CharField(max_length=255, verbose_name='Descripcion', null=False)
     banco=models.ForeignKey(Banco, on_delete=models.CASCADE, null=True) #ForeignKey
 
@@ -65,29 +65,29 @@ class Tipo_Tarjeta(models.Model):
 class Tipo_Pago(models.Model):
     id = models.AutoField(primary_key=True)
 
-    tipo_pago=models.CharField(nique=True,max_length=255, verbose_name='Tipo_Pago', null=False)
+    tipo_pago=models.CharField(unique=True,max_length=255, verbose_name='Tipo_Pago', null=False)
     desc_tipo_pago=models.CharField(max_length=255, verbose_name='Descripcion', null=False)
     tipo_tarjeta=models.ForeignKey(Tipo_Tarjeta, on_delete=models.CASCADE, null=True) #ForeignKey
 
 class Talla_Ropa(models.Model):
     id = models.AutoField(primary_key=True)
 
-    talla_ropa=models.CharField(nique=True,max_length=255, verbose_name='Talla_Ropa', null=False)
+    talla_ropa=models.CharField(unique=True,max_length=255, verbose_name='Talla_Ropa', null=False)
     desc_talla_ropa=models.CharField(max_length=255, verbose_name='Descripcion', null=False)
     medidas=models.TextField(verbose_name='Medidas_En_Cm2', null=False)
 
 class Color(models.Model):
     id = models.AutoField(primary_key=True)
 
-    color=models.CharField(nique=True,max_length=255, verbose_name='Color', null=False)
+    color=models.CharField(unique=True,max_length=255, verbose_name='Color', null=False)
     rgb=models.CharField(max_length=255, verbose_name='Paleta_RGB', null=False)
     hex=models.CharField(max_length=255,verbose_name='Paleta_Hex', null=False)
 
 class Tipo_Cuenta(models.Model):
     id = models.AutoField(primary_key=True)
 
-    nombre_tipo=models.CharField(nique=True,max_length=255, verbose_name='Tipo_De_Cuenta', null=False)
-    desc=models.CharField(nique=True,max_length=255, verbose_name='Descripcion', null=False)
+    nombre_tipo=models.CharField(unique=True,max_length=255, verbose_name='Tipo_De_Cuenta', null=False)
+    desc=models.CharField(unique=True,max_length=255, verbose_name='Descripcion', null=False)
     nivel_staff=models.IntegerField(verbose_name='Nivel Staff', null=True, default=0) #ForeignKey 
 
 
@@ -112,7 +112,7 @@ class Empleado(models.Model):
 class Sucursal(models.Model):
     id = models.AutoField(primary_key=True)
 
-    nombre_sucursal=models.CharField(nique=True,max_length=255, verbose_name='Color', null=False)
+    nombre_sucursal=models.CharField(unique=True,max_length=255, verbose_name='Color', null=False)
     telefono=models.CharField(max_length=255,verbose_name='Paleta_Hex', null=False)
 
     gerente=models.ForeignKey(Empleado, on_delete=models.CASCADE)
@@ -121,7 +121,7 @@ class Sucursal(models.Model):
 class Bodega(models.Model):
     id = models.AutoField(primary_key=True)
 
-    nombre_bodega=models.CharField(nique=True,max_length=255, verbose_name='Color', null=False)
+    nombre_bodega=models.CharField(unique=True,max_length=255, verbose_name='Color', null=False)
     telefono=models.CharField(max_length=255,verbose_name='Paleta_Hex', null=False)
     encargado=models.ForeignKey(Empleado, on_delete=models.CASCADE)
     comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE) #ForeignKey
@@ -152,14 +152,14 @@ class Ventas_Mes(models.Model):
 class Categoria(models.Model):
     id = models.AutoField(primary_key=True)
 
-    tipo_categoria=models.TextField(verbose_name='Tipo_Categoria', null=True)
-    desc=models.TextField(verbose_name='Descripcion', null=True)
+    tipo_categoria=models.TextField(verbose_name='Tipo_Categoria', null=False)
+    desc=models.TextField(verbose_name='Descripcion', null=False)
 
 class Edad_Ropa(models.Model):
     id = models.AutoField(primary_key=True)
 
-    rango_edad=models.CharField(verbose_name='Rango_Edad', null=True)
-    desc=models.TextField(verbose_name='Descripcion', null=True)
+    rango_edad=models.TextField(verbose_name='Rango_Edad', null=False)
+    desc=models.TextField(verbose_name='Descripcion', null=False)
 
 class Producto(models.Model):
     id = models.AutoField(primary_key=True)
