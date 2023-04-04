@@ -202,6 +202,18 @@ class Tipo_Impreso(models.Model):
     tipo=models.CharField(max_length=100, verbose_name='Boleta_Factura', null=False)
     desct=models.CharField(max_length=100, verbose_name='Descripcion', null=False)
 
+class Tipo_Pedido(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    tipo=models.CharField(max_length=100, verbose_name='Online_Presencial', null=False)
+    desct=models.CharField(max_length=100, verbose_name='Descripcion', null=False)
+
+class Tipo_Envio(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    tipo=models.CharField(max_length=100, verbose_name='Despacho_Retiro', null=False)
+    desct=models.CharField(max_length=100, verbose_name='Descripcion', null=False)
+
 
 class Orden(models.Model):
     id = models.AutoField(primary_key=True)
@@ -210,12 +222,21 @@ class Orden(models.Model):
     fecha_orden=models.DateField(auto_now_add=True, verbose_name="Fecha_Orden", null=False)
 
     comprador=models.ForeignKey(Clientes, on_delete=models.CASCADE)#ForeignKey
-    sucursal=models.ForeignKey(Sucursal, on_delete=models.CASCADE)#ForeignKey
-    vendedor=models.ForeignKey(Empleado, on_delete=models.CASCADE)#ForeignKey
+    tipo_envio=models.ForeignKey(Tipo_Envio, on_delete=models.CASCADE)  #ForeignKey
+    tipo_pedido=models.ForeignKey(Tipo_Pedido, on_delete=models.CASCADE)  #ForeignKey
+
+    comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE)  #ForeignKey
+
+    #Este está en NULL TRUE, porque si el pago es online, no debería marcar una sucursal
+    sucursal=models.ForeignKey(Sucursal, on_delete=models.CASCADE, null=True)#ForeignKey
+    #Este está en NULL TRUE, porque si el pago es online, no debería marcar un vendedor
+    vendedor=models.ForeignKey(Empleado, on_delete=models.CASCADE, null=True)#ForeignKey
+    
     estado=models.ForeignKey(Tipo_Estado, on_delete=models.CASCADE)  #ForeignKey
     tipo_impreso=models.ForeignKey(Tipo_Impreso, on_delete=models.CASCADE)  #ForeignKey
     tipo_pago=models.ForeignKey(Tipo_Pago, on_delete=models.CASCADE)  #ForeignKey
 
+    
 class Detalle_Orden(models.Model):
     id = models.AutoField(primary_key=True)
 
