@@ -1,3 +1,7 @@
+#pip install djangorestframework
+#go to url -> 127.0.0.1:8000/api
+# created by MikyDev -> https://github.com/KevinAlonsoQC/Integracion_Plataforma_ET_Python 
+
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
 import os

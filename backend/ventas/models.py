@@ -35,7 +35,7 @@ class Comuna(models.Model):
     comuna=models.CharField(unique=True,max_length=255, verbose_name='Comuna', null=False)
     ciudad=models.ForeignKey(Ciudad, on_delete=models.CASCADE) #ForeignKey
 
-class Tipo_Proovedor(models.Model):
+class Tipo_Proovedor(models.Model): #6
     id = models.AutoField(primary_key=True)
 
     tipo_proovedor=models.CharField(max_length=255, verbose_name='Tipo_Proovedor', null=False)
@@ -69,7 +69,7 @@ class Tipo_Pago(models.Model):
     desc_tipo_pago=models.CharField(max_length=255, verbose_name='Descripcion', null=False)
     tipo_tarjeta=models.ForeignKey(Tipo_Tarjeta, on_delete=models.CASCADE, null=True) #ForeignKey
 
-class Talla_Ropa(models.Model):
+class Talla_Ropa(models.Model): #11
     id = models.AutoField(primary_key=True)
 
     talla_ropa=models.CharField(unique=True,max_length=255, verbose_name='Talla_Ropa', null=False)
@@ -108,6 +108,20 @@ class Empleado(models.Model):
     comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE) #ForeignKey
     tipo_cuenta=models.ForeignKey(Tipo_Cuenta, on_delete=models.CASCADE) #ForeignKey
 
+class Clientes(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    nombre_unico=models.CharField(unique=True, max_length=100, verbose_name='Nombre_Unico', null=False)
+
+    nombre=models.CharField(max_length=40, verbose_name='Nombre', null=False)
+    apellido=models.CharField(max_length=40, verbose_name='Apellido', null=False)
+    email=models.EmailField(unique=True, max_length=100, verbose_name='Email', null=False)
+    password=models.CharField(max_length=100, verbose_name='Contraseña', null=False)
+
+    sexo=models.ForeignKey(Sexo, on_delete=models.CASCADE)
+    celular=models.CharField(max_length=9, verbose_name='Celular', null=False) 
+    nacimiento=models.DateField(verbose_name="Fecha_Nacimiento", null=False)
+    comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE) #ForeignKey
 
 class Sucursal(models.Model):
     id = models.AutoField(primary_key=True)
@@ -118,7 +132,7 @@ class Sucursal(models.Model):
     gerente=models.ForeignKey(Empleado, on_delete=models.CASCADE)
     comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE) #ForeignKey
 
-class Bodega(models.Model):
+class Bodega(models.Model): #16
     id = models.AutoField(primary_key=True)
 
     nombre_bodega=models.CharField(unique=True,max_length=255, verbose_name='Color', null=False)
@@ -149,11 +163,37 @@ class Ventas_Mes(models.Model):
     productos_devueltos=models.IntegerField(verbose_name='Productos_Devueltos_Mes', null=True)
     mes=models.DateField(auto_now_add=True, verbose_name="Datos_Mes", null=False)
 
+class Promocion(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    nombre_promocion=models.CharField(max_length=255,verbose_name='Nombre_Promocion', null=False)
+    desc=models.TextField(verbose_name='Descripcion', null=False)
+    fecha_inicio=models.DateField(verbose_name="Fecha_Inicio", null=False)
+    fecha_fin=models.DateField(verbose_name="Fecha_Fin", null=False)
+
+
+class Cupon_Descuento(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    nombre_desct=models.CharField(max_length=255,verbose_name='Nombre_Descuento', null=False)
+    desc=models.TextField(verbose_name='Descripcion', null=False)
+    fecha_inicio=models.DateField(verbose_name="Fecha_Inicio", null=False)
+    fecha_fin=models.DateField(verbose_name="Fecha_Fin", null=False)
+
+class Cliente_Cupon_Descuento(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    cliente=models.ForeignKey(Clientes, on_delete=models.CASCADE, null=False) #ForeignKey
+    cupon_descuento=models.ForeignKey(Cupon_Descuento, on_delete=models.CASCADE, null=False) #ForeignKey
+
 class Categoria(models.Model):
     id = models.AutoField(primary_key=True)
 
     tipo_categoria=models.TextField(verbose_name='Tipo_Categoria', null=False)
     desc=models.TextField(verbose_name='Descripcion', null=False)
+
+    #Una serie de productos de dicha categoría pueden estar en promo
+    en_promo=models.ForeignKey(Promocion, on_delete=models.CASCADE, null=True) #ForeignKey
 
 class Edad_Ropa(models.Model):
     id = models.AutoField(primary_key=True)
@@ -161,7 +201,8 @@ class Edad_Ropa(models.Model):
     rango_edad=models.TextField(verbose_name='Rango_Edad', null=False)
     desc=models.TextField(verbose_name='Descripcion', null=False)
 
-class Producto(models.Model):
+
+class Producto(models.Model): #21
     id = models.AutoField(primary_key=True)
 
     nombre_producto=models.CharField(max_length=100, verbose_name='Nombre_Producto', null=False)
@@ -175,20 +216,6 @@ class Producto(models.Model):
     talla_ropa=models.ForeignKey(Talla_Ropa, on_delete=models.CASCADE, null=True) #ForeignKey
     color=models.ForeignKey(Color, on_delete=models.CASCADE, null=True) #ForeignKey
 
-class Clientes(models.Model):
-    id = models.AutoField(primary_key=True)
-
-    nombre_unico=models.CharField(unique=True, max_length=100, verbose_name='Nombre_Unico', null=False)
-
-    nombre=models.CharField(max_length=40, verbose_name='Nombre', null=False)
-    apellido=models.CharField(max_length=40, verbose_name='Apellido', null=False)
-    email=models.EmailField(unique=True, max_length=100, verbose_name='Email', null=False)
-    password=models.CharField(max_length=100, verbose_name='Contraseña', null=False)
-
-    sexo=models.ForeignKey(Sexo, on_delete=models.CASCADE)
-    celular=models.CharField(max_length=9, verbose_name='Celular', null=False) 
-    nacimiento=models.DateField(verbose_name="Fecha_Nacimiento", null=False)
-    comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE) #ForeignKey
 
 class Tipo_Estado(models.Model):
     id = models.AutoField(primary_key=True)
@@ -202,7 +229,7 @@ class Tipo_Impreso(models.Model):
     tipo=models.CharField(max_length=100, verbose_name='Boleta_Factura', null=False)
     desct=models.CharField(max_length=100, verbose_name='Descripcion', null=False)
 
-class Tipo_Pedido(models.Model):
+class Tipo_Pedido(models.Model): #25
     id = models.AutoField(primary_key=True)
 
     tipo=models.CharField(max_length=100, verbose_name='Online_Presencial', null=False)
@@ -221,7 +248,7 @@ class Tipo_Hogar(models.Model):
     desct=models.CharField(max_length=100, verbose_name='Descripcion', null=False)
 
 
-class Direcciones_Clientes(models.Model):
+class Direcciones_Clientes(models.Model): #28
     id = models.AutoField(primary_key=True)
 
     direccion=models.CharField(max_length=100, verbose_name='Direccion_Casa', null=False)
@@ -265,7 +292,7 @@ class Detalle_Orden(models.Model):
     precio_total=models.IntegerField(verbose_name="Precio_Total", null=False)
     fecha_orden=models.DateField(auto_now_add=True, verbose_name="Fecha_Orden", null=False)
     
-class Inventario(models.Model):
+class Inventario(models.Model): #31
     id = models.AutoField(primary_key=True)
     
     producto=models.ForeignKey(Producto, on_delete=models.CASCADE) #ForeignKey
@@ -279,3 +306,23 @@ class Inventario(models.Model):
 
     bodega=models.ForeignKey(Bodega, on_delete=models.CASCADE)#ForeignKey
 
+class Procesar_Pago(models.Model): #31
+    id = models.AutoField(primary_key=True)
+    
+    cliente=models.ForeignKey(Clientes, on_delete=models.CASCADE) #ForeignKey
+    orden=models.ForeignKey(Orden, on_delete=models.CASCADE) #ForeignKey
+    fecha_proceso=models.DateField(auto_now_add=True, verbose_name="Fecha_Procesado_Pago", null=False)
+
+class Recepcion_Pago(models.Model): #31
+    id = models.AutoField(primary_key=True)
+    
+    cliente=models.ForeignKey(Clientes, on_delete=models.CASCADE) #ForeignKey
+    orden=models.ForeignKey(Orden, on_delete=models.CASCADE) #ForeignKey
+    fecha_recepcion=models.DateField(auto_now_add=True, verbose_name="Fecha_Recepcion_Pago", null=False)
+
+class Rechazo_Pago(models.Model): #31
+    id = models.AutoField(primary_key=True)
+    
+    cliente=models.ForeignKey(Clientes, on_delete=models.CASCADE) #ForeignKey
+    orden=models.ForeignKey(Orden, on_delete=models.CASCADE) #ForeignKey
+    fecha_rechazo=models.DateField(auto_now_add=True, verbose_name="Fecha_Rechazo_Pago", null=False)
