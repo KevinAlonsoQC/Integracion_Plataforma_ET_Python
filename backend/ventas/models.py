@@ -13,9 +13,14 @@ class Sexo(models.Model):
     sexo=models.TextField(verbose_name='Sexo', null=True)
     desc=models.TextField(verbose_name='Descripcion', null=True)
 
+    def __str__(self):
+        return self.sexo
+
 class Continente(models.Model):
     id = models.AutoField(primary_key=True)
     continente=models.CharField(unique=True, max_length=255, verbose_name='Continente', null=False)
+    def __str__(self):
+        return self.continente
 
 class Pais(models.Model):
     id = models.AutoField(primary_key=True)
@@ -23,11 +28,17 @@ class Pais(models.Model):
     pais=models.CharField(unique=True,max_length=255, verbose_name='Pais', null=False)
     continente=models.ForeignKey(Continente, on_delete=models.CASCADE) #ForeignKey
 
+    def __str__(self):
+        return self.pais
+
 class Ciudad(models.Model):
     id = models.AutoField(primary_key=True)
 
     ciudad=models.CharField(unique=True,max_length=255, verbose_name='Ciudad', null=False)
     pais=models.ForeignKey(Pais, on_delete=models.CASCADE) #ForeignKey
+
+    def __str__(self):
+        return self.ciudad
 
 class Comuna(models.Model):
     id = models.AutoField(primary_key=True)
@@ -35,17 +46,26 @@ class Comuna(models.Model):
     comuna=models.CharField(unique=True,max_length=255, verbose_name='Comuna', null=False)
     ciudad=models.ForeignKey(Ciudad, on_delete=models.CASCADE) #ForeignKey
 
+    def __str__(self):
+        return self.comuna
+
 class Tipo_Proovedor(models.Model): #6
     id = models.AutoField(primary_key=True)
 
     tipo_proovedor=models.CharField(max_length=255, verbose_name='Tipo_Proovedor', null=False)
     desc_tipo_proovedor=models.CharField(max_length=255, verbose_name='Descripcion', null=False)
 
+    def __str__(self):
+        return self.tipo_proovedor
+
 class Tipo_Producto(models.Model):
     id = models.AutoField(primary_key=True)
 
     tipo_producto=models.CharField(max_length=255, verbose_name='Tipo_Producto', null=False)
     desc_tipo_producto=models.CharField(max_length=255, verbose_name='Descripcion', null=False)
+
+    def __str__(self):
+        return self.tipo_producto
 
 class Banco(models.Model):
     id = models.AutoField(primary_key=True)
@@ -54,6 +74,9 @@ class Banco(models.Model):
     ciudad_banco=models.ForeignKey(Ciudad,on_delete=models.CASCADE, null=True)
     pais_banco=models.ForeignKey(Pais,on_delete=models.CASCADE, null=True)
 
+    def __str__(self):
+        return self.nombre_banco
+
 class Tipo_Tarjeta(models.Model):
     id = models.AutoField(primary_key=True)
 
@@ -61,6 +84,8 @@ class Tipo_Tarjeta(models.Model):
     desc_tipo_pago=models.CharField(max_length=255, verbose_name='Descripcion', null=False)
     banco=models.ForeignKey(Banco, on_delete=models.CASCADE, null=True) #ForeignKey
 
+    def __str__(self):
+        return self.tipo_tarjeta
 
 class Tipo_Pago(models.Model):
     id = models.AutoField(primary_key=True)
@@ -69,6 +94,9 @@ class Tipo_Pago(models.Model):
     desc_tipo_pago=models.CharField(max_length=255, verbose_name='Descripcion', null=False)
     tipo_tarjeta=models.ForeignKey(Tipo_Tarjeta, on_delete=models.CASCADE, null=True) #ForeignKey
 
+    def __str__(self):
+        return self.tipo_pago
+
 class Talla_Ropa(models.Model): #11
     id = models.AutoField(primary_key=True)
 
@@ -76,12 +104,17 @@ class Talla_Ropa(models.Model): #11
     desc_talla_ropa=models.CharField(max_length=255, verbose_name='Descripcion', null=False)
     medidas=models.TextField(verbose_name='Medidas_En_Cm2', null=False)
 
+    def __str__(self):
+        return self.talla_ropa
+    
 class Color(models.Model):
     id = models.AutoField(primary_key=True)
 
     color=models.CharField(unique=True,max_length=255, verbose_name='Color', null=False)
     rgb=models.CharField(max_length=255, verbose_name='Paleta_RGB', null=False)
     hex=models.CharField(max_length=255,verbose_name='Paleta_Hex', null=False)
+    def __str__(self):
+        return self.color
 
 class Tipo_Cuenta(models.Model):
     id = models.AutoField(primary_key=True)
@@ -90,6 +123,8 @@ class Tipo_Cuenta(models.Model):
     desc=models.CharField(unique=True,max_length=255, verbose_name='Descripcion', null=False)
     nivel_staff=models.IntegerField(verbose_name='Nivel Staff', null=True, default=0) #ForeignKey 
 
+    def __str__(self):
+        return self.nombre_tipo
 
 class Empleado(models.Model):
     id = models.AutoField(primary_key=True)
@@ -108,6 +143,9 @@ class Empleado(models.Model):
     comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE) #ForeignKey
     tipo_cuenta=models.ForeignKey(Tipo_Cuenta, on_delete=models.CASCADE) #ForeignKey
 
+    def __str__(self):
+        return self.nombre+' '+self.apellido
+
 class Clientes(models.Model):
     id = models.AutoField(primary_key=True)
 
@@ -123,6 +161,9 @@ class Clientes(models.Model):
     nacimiento=models.DateField(verbose_name="Fecha_Nacimiento", null=False)
     comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE) #ForeignKey
 
+    def __str__(self):
+        return self.nombre+' '+self.apellido
+
 class Sucursal(models.Model):
     id = models.AutoField(primary_key=True)
 
@@ -132,6 +173,9 @@ class Sucursal(models.Model):
     gerente=models.ForeignKey(Empleado, on_delete=models.CASCADE)
     comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE) #ForeignKey
 
+    def __str__(self):
+        return self.nombre_sucursal
+
 class Bodega(models.Model): #16
     id = models.AutoField(primary_key=True)
 
@@ -140,6 +184,8 @@ class Bodega(models.Model): #16
     encargado=models.ForeignKey(Empleado, on_delete=models.CASCADE)
     comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE) #ForeignKey
 
+    def __str__(self):
+        return self.nombre_bodega
 
 class Proovedor(models.Model):
     id = models.AutoField(primary_key=True)
@@ -153,6 +199,9 @@ class Proovedor(models.Model):
     tipo_proovedor=models.ForeignKey(Tipo_Proovedor, on_delete=models.CASCADE, null=True) #ForeignKey
     comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE) #ForeignKey
 
+    def __str__(self):
+        return self.nombre_proovedor
+
 class Ventas_Mes(models.Model):
     id = models.AutoField(primary_key=True)
     
@@ -163,6 +212,7 @@ class Ventas_Mes(models.Model):
     productos_devueltos=models.IntegerField(verbose_name='Productos_Devueltos_Mes', null=True)
     mes=models.DateField(auto_now_add=True, verbose_name="Datos_Mes", null=False)
 
+    
 class Promocion(models.Model):
     id = models.AutoField(primary_key=True)
 
@@ -170,6 +220,9 @@ class Promocion(models.Model):
     desc=models.TextField(verbose_name='Descripcion', null=False)
     fecha_inicio=models.DateField(verbose_name="Fecha_Inicio", null=False)
     fecha_fin=models.DateField(verbose_name="Fecha_Fin", null=False)
+
+    def __str__(self):
+        return self.nombre_promocion
 
 
 class Cupon_Descuento(models.Model):
@@ -180,11 +233,15 @@ class Cupon_Descuento(models.Model):
     fecha_inicio=models.DateField(verbose_name="Fecha_Inicio", null=False)
     fecha_fin=models.DateField(verbose_name="Fecha_Fin", null=False)
 
+    def __str__(self):
+        return self.nombre_desct
+
 class Cliente_Cupon_Descuento(models.Model):
     id = models.AutoField(primary_key=True)
 
     cliente=models.ForeignKey(Clientes, on_delete=models.CASCADE, null=False) #ForeignKey
     cupon_descuento=models.ForeignKey(Cupon_Descuento, on_delete=models.CASCADE, null=False) #ForeignKey
+
 
 class Categoria(models.Model):
     id = models.AutoField(primary_key=True)
@@ -195,12 +252,17 @@ class Categoria(models.Model):
     #Una serie de productos de dicha categoría pueden estar en promo
     en_promo=models.ForeignKey(Promocion, on_delete=models.CASCADE, null=True) #ForeignKey
 
+    def __str__(self):
+        return self.tipo_categoria
+
 class Edad_Ropa(models.Model):
     id = models.AutoField(primary_key=True)
 
     rango_edad=models.TextField(verbose_name='Rango_Edad', null=False)
     desc=models.TextField(verbose_name='Descripcion', null=False)
 
+    def __str__(self):
+        return self.rango_edad
 
 class Producto(models.Model): #21
     id = models.AutoField(primary_key=True)
@@ -216,12 +278,17 @@ class Producto(models.Model): #21
     talla_ropa=models.ForeignKey(Talla_Ropa, on_delete=models.CASCADE, null=True) #ForeignKey
     color=models.ForeignKey(Color, on_delete=models.CASCADE, null=True) #ForeignKey
 
-
+    def __str__(self):
+        return self.nombre_producto
+    
 class Tipo_Estado(models.Model):
     id = models.AutoField(primary_key=True)
 
     estado=models.CharField(max_length=100, verbose_name='Tipo_Estado', null=False)
     desct=models.CharField(max_length=100, verbose_name='Descripcion', null=False)
+
+    def __str__(self):
+        return self.estado
 
 class Tipo_Impreso(models.Model):
     id = models.AutoField(primary_key=True)
@@ -229,11 +296,17 @@ class Tipo_Impreso(models.Model):
     tipo=models.CharField(max_length=100, verbose_name='Boleta_Factura', null=False)
     desct=models.CharField(max_length=100, verbose_name='Descripcion', null=False)
 
+    def __str__(self):
+        return self.tipo
+
 class Tipo_Pedido(models.Model): #25
     id = models.AutoField(primary_key=True)
 
     tipo=models.CharField(max_length=100, verbose_name='Online_Presencial', null=False)
     desct=models.CharField(max_length=100, verbose_name='Descripcion', null=False)
+
+    def __str__(self):
+        return self.tipo
 
 class Tipo_Envio(models.Model):
     id = models.AutoField(primary_key=True)
@@ -241,11 +314,17 @@ class Tipo_Envio(models.Model):
     tipo=models.CharField(max_length=100, verbose_name='Despacho_Retiro', null=False)
     desct=models.CharField(max_length=100, verbose_name='Descripcion', null=False)
 
+    def __str__(self):
+        return self.tipo
+
 class Tipo_Hogar(models.Model):
     id = models.AutoField(primary_key=True)
 
     tipo=models.CharField(max_length=100, verbose_name='Casa_Depto_Otro', null=False)
     desct=models.CharField(max_length=100, verbose_name='Descripcion', null=False)
+
+    def __str__(self):
+        return self.tipo
 
 
 class Direcciones_Clientes(models.Model): #28
@@ -257,6 +336,10 @@ class Direcciones_Clientes(models.Model): #28
     cliente=models.ForeignKey(Clientes, on_delete=models.CASCADE)#ForeignKey
     comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE)  #ForeignKey
     tipo_hogar=models.ForeignKey(Tipo_Hogar, on_delete=models.CASCADE)  #ForeignKey
+
+    def __str__(self):
+        return self.direccion+' '+self.cliente
+
 
 
 class Orden(models.Model):
@@ -280,6 +363,8 @@ class Orden(models.Model):
     tipo_impreso=models.ForeignKey(Tipo_Impreso, on_delete=models.CASCADE)  #ForeignKey
     tipo_pago=models.ForeignKey(Tipo_Pago, on_delete=models.CASCADE)  #ForeignKey
 
+    def __str__(self):
+        return self.numero_orden
     
 class Detalle_Orden(models.Model):
     id = models.AutoField(primary_key=True)
@@ -291,6 +376,7 @@ class Detalle_Orden(models.Model):
     precio_unitario=models.IntegerField(verbose_name="Precio_Por_Unidad", null=False)
     precio_total=models.IntegerField(verbose_name="Precio_Total", null=False)
     fecha_orden=models.DateField(auto_now_add=True, verbose_name="Fecha_Orden", null=False)
+
     
 class Inventario(models.Model): #31
     id = models.AutoField(primary_key=True)
