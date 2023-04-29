@@ -8,6 +8,7 @@ un método dinámico. Sin embargo, debes tener en cuenta que la creación de ser
 especialmente si se generan un gran número de ellos. Además, si bien la creación dinámica de serializers y viewsets puede ahorrar tiempo en la implementación inicial, 
 también puede hacer que sea más difícil de mantener el código a largo plazo.
 
+También considerar que solo es un trabajo con back-end, es decir que no incluye nada de front-end, tal vez en un futuro se finalice la sección visual.
 
 ## Install EN
 If you have'nt python. Go to the next url [Python](https://www.python.org/downloads/) and download.
@@ -38,3 +39,11 @@ git clone https://github.com/KevinAlonsoQC/Integracion_Plataforma_ET_Python.git
 4) luego escribe `pip install djangorestframework` y presiona enter
 5) A continuación escribe `python manage.py runserver`
 6) Ve a tu navegador y escribe la siguiente URL `127.0.0.1:8000/api`
+
+
+# BETA - NOT FINISHED
+
+* Base de Datos: Terminada / Finished
+* Api RestFull: Terminada / Finished
+* WebService: En proceso / In progress
+* Transbank: En proceso / In progress
