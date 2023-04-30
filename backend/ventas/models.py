@@ -144,7 +144,7 @@ class Empleado(models.Model):
     tipo_cuenta=models.ForeignKey(Tipo_Cuenta, on_delete=models.CASCADE) #ForeignKey
 
     def __str__(self):
-        return self.nombre+' '+self.apellido
+        return self.nombre+' '+self.apellido+' | Puesto: '+self.tipo_cuenta.nombre_tipo
 
 class Clientes(models.Model):
     id = models.AutoField(primary_key=True)
@@ -167,8 +167,8 @@ class Clientes(models.Model):
 class Sucursal(models.Model):
     id = models.AutoField(primary_key=True)
 
-    nombre_sucursal=models.CharField(unique=True,max_length=255, verbose_name='Color', null=False)
-    telefono=models.CharField(max_length=255,verbose_name='Paleta_Hex', null=False)
+    nombre_sucursal=models.CharField(unique=True,max_length=255, verbose_name='Nombre_Sucursal', null=False)
+    telefono=models.CharField(max_length=255,verbose_name='Telefono', null=False)
 
     gerente=models.ForeignKey(Empleado, on_delete=models.CASCADE)
     comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE) #ForeignKey
@@ -179,8 +179,8 @@ class Sucursal(models.Model):
 class Bodega(models.Model): #16
     id = models.AutoField(primary_key=True)
 
-    nombre_bodega=models.CharField(unique=True,max_length=255, verbose_name='Color', null=False)
-    telefono=models.CharField(max_length=255,verbose_name='Paleta_Hex', null=False)
+    nombre_bodega=models.CharField(unique=True,max_length=255, verbose_name='Nombre_Bodega', null=False)
+    telefono=models.CharField(max_length=255,verbose_name='Telefono', null=False)
     encargado=models.ForeignKey(Empleado, on_delete=models.CASCADE)
     comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE) #ForeignKey
 
@@ -338,7 +338,7 @@ class Direcciones_Clientes(models.Model): #28
     tipo_hogar=models.ForeignKey(Tipo_Hogar, on_delete=models.CASCADE)  #ForeignKey
 
     def __str__(self):
-        return self.direccion+' '+self.cliente
+        return "Dirección: "+self.direccion+" | Cliente: "+self.cliente.nombre+" "+self.cliente.apellido
 
 
 
@@ -399,16 +399,21 @@ class Procesar_Pago(models.Model): #31
     orden=models.ForeignKey(Orden, on_delete=models.CASCADE) #ForeignKey
     fecha_proceso=models.DateField(auto_now_add=True, verbose_name="Fecha_Procesado_Pago", null=False)
 
+    def __str__(self):
+        return self.cliente.nombre+' '+self.cliente.apellido+' | Orden: '+self.orden.numero_orden
+
 class Recepcion_Pago(models.Model): #31
     id = models.AutoField(primary_key=True)
     
-    cliente=models.ForeignKey(Clientes, on_delete=models.CASCADE) #ForeignKey
-    orden=models.ForeignKey(Orden, on_delete=models.CASCADE) #ForeignKey
+    #recepcion=models.ForeignKey(Procesar_Pago, on_delete=models.CASCADE, null=False) #ForeignKey
+    cliente=models.ForeignKey(Clientes, on_delete=models.CASCADE, null=False) #ForeignKey
+    orden=models.ForeignKey(Orden, on_delete=models.CASCADE, null=False) #ForeignKey
     fecha_recepcion=models.DateField(auto_now_add=True, verbose_name="Fecha_Recepcion_Pago", null=False)
 
 class Rechazo_Pago(models.Model): #31
     id = models.AutoField(primary_key=True)
     
-    cliente=models.ForeignKey(Clientes, on_delete=models.CASCADE) #ForeignKey
-    orden=models.ForeignKey(Orden, on_delete=models.CASCADE) #ForeignKey
+    #recepcion=models.ForeignKey(Procesar_Pago, on_delete=models.CASCADE , null=False) #ForeignKey
+    cliente=models.ForeignKey(Clientes, on_delete=models.CASCADE, null=False) #ForeignKey
+    orden=models.ForeignKey(Orden, on_delete=models.CASCADE, null=False) #ForeignKey
     fecha_rechazo=models.DateField(auto_now_add=True, verbose_name="Fecha_Rechazo_Pago", null=False)
