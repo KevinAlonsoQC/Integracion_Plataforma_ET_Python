@@ -6,6 +6,14 @@ from django.db import models
 #models.IntergerField es de tipo interger (número)
 
 #models.ForeignKey(Class_Relacionada, on_delete=models.CASCADE)
+class Pokemon(models.Model):
+    nombre = models.CharField(max_length=50)
+    altura = models.IntegerField()
+    peso = models.IntegerField()
+    habilidades = models.TextField()
+
+    def __str__(self):
+        return self.nombre
 
 class Sexo(models.Model):
     id = models.AutoField(primary_key=True)

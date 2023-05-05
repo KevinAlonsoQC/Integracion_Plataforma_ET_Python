@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from ventas.api.views import router
-
+from ventas import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
+    path('cargar-pokemons/', views.cargar_pokemons, name='cargar_pokemons'),
+
 ]
