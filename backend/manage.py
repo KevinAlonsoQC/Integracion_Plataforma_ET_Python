@@ -1,8 +1,6 @@
 #pip install djangorestframework
 #pip install requests
 #go to url -> 127.0.0.1:8000/api
-# created by MikyDev -> https://github.com/KevinAlonsoQC/Integracion_Plataforma_ET_Python 
-
 
 #crear pokemones:
 #go to url -> 127.0.0.1:8000/cargar-pokemons/
