@@ -1,7 +1,7 @@
-from rest_framework import routers
 from django.apps import apps
 from django.db import models
-from rest_framework import serializers, viewsets
+from rest_framework import serializers, viewsets, status, routers
+from django.http import JsonResponse
 
 def create_serializer_and_viewset(modelos):
     class Serializer(serializers.ModelSerializer):
@@ -14,7 +14,15 @@ def create_serializer_and_viewset(modelos):
         serializer_class = Serializer
 
         # Métodos adicionales de la vista aquí
-
+        def create(self, request, *args, **kwargs):
+            serializer = self.get_serializer(data=request.data)
+            if serializer.is_valid():
+                # Los datos recibidos son válidos, podemos crear un nuevo objeto
+                self.perform_create(serializer)
+                return JsonResponse({'status':status.HTTP_201_CREATED, 'Mensaje':'Ha sido creado...'})
+            else:
+                # Los datos recibidos no son válidos
+                return JsonResponse({'status': status.HTTP_400_BAD_REQUEST, 'Mensaje':'Datos incorrectos...'})
     return ViewSet
 
 def get_dynamic_viewsets():

@@ -6,15 +6,6 @@ from django.db import models
 #models.IntergerField es de tipo interger (número)
 
 #models.ForeignKey(Class_Relacionada, on_delete=models.CASCADE)
-class Pokemon(models.Model):
-    nombre = models.CharField(max_length=50)
-    altura = models.IntegerField()
-    peso = models.IntegerField()
-    habilidades = models.TextField()
-
-    def __str__(self):
-        return self.nombre
-
 class Sexo(models.Model):
     id = models.AutoField(primary_key=True)
 
@@ -403,8 +394,8 @@ class Inventario(models.Model): #31
 class Procesar_Pago(models.Model): #31
     id = models.AutoField(primary_key=True)
     
-    cliente=models.ForeignKey(Clientes, on_delete=models.CASCADE) #ForeignKey
-    orden=models.ForeignKey(Orden, on_delete=models.CASCADE) #ForeignKey
+    cliente=models.ForeignKey(Clientes, on_delete=models.CASCADE, null=False) #ForeignKey
+    orden=models.ForeignKey(Orden, on_delete=models.CASCADE, null=False) #ForeignKey
     fecha_proceso=models.DateField(auto_now_add=True, verbose_name="Fecha_Procesado_Pago", null=False)
 
     def __str__(self):
@@ -413,7 +404,7 @@ class Procesar_Pago(models.Model): #31
 class Recepcion_Pago(models.Model): #31
     id = models.AutoField(primary_key=True)
     
-    #recepcion=models.ForeignKey(Procesar_Pago, on_delete=models.CASCADE, null=False) #ForeignKey
+    recepcion=models.ForeignKey(Procesar_Pago, on_delete=models.CASCADE, null=False) #ForeignKey
     cliente=models.ForeignKey(Clientes, on_delete=models.CASCADE, null=False) #ForeignKey
     orden=models.ForeignKey(Orden, on_delete=models.CASCADE, null=False) #ForeignKey
     fecha_recepcion=models.DateField(auto_now_add=True, verbose_name="Fecha_Recepcion_Pago", null=False)
@@ -421,7 +412,7 @@ class Recepcion_Pago(models.Model): #31
 class Rechazo_Pago(models.Model): #31
     id = models.AutoField(primary_key=True)
     
-    #recepcion=models.ForeignKey(Procesar_Pago, on_delete=models.CASCADE , null=False) #ForeignKey
+    recepcion=models.ForeignKey(Procesar_Pago, on_delete=models.CASCADE, null=False) #ForeignKey
     cliente=models.ForeignKey(Clientes, on_delete=models.CASCADE, null=False) #ForeignKey
     orden=models.ForeignKey(Orden, on_delete=models.CASCADE, null=False) #ForeignKey
     fecha_rechazo=models.DateField(auto_now_add=True, verbose_name="Fecha_Rechazo_Pago", null=False)

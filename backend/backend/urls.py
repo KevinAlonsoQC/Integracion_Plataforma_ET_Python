@@ -19,8 +19,9 @@ from ventas.api.views import router
 from ventas import views
 
 urlpatterns = [
+    path('', views.home, name='home'),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('cargar-pokemons/', views.cargar_pokemons, name='cargar_pokemons'),
+    #path('cargar-pokemons/', views.cargar_pokemons, name='cargar_pokemons'),
 
 ]
