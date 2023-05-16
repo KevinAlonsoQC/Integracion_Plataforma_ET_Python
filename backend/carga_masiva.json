@@ -1,0 +1,860 @@
+{
+  "sexo": [
+    {
+        "id": 1,
+        "sexo": "Hombre",
+        "desc": "Sexo masculino según el mundo"
+    },
+    {
+        "id": 2,
+        "sexo": "Mujer",
+        "desc": "Sexo femenino según el mundo"
+    },
+    {
+        "id": 3,
+        "sexo": "Otro",
+        "desc": "Para nuevas generaciones"
+    }
+  ],
+  "continente": [
+    {
+        "id": 1,
+        "continente": "América del Sur"
+    },
+    {
+        "id": 2,
+        "continente": "América del Norte"
+    },
+    {
+        "id": 3,
+        "continente": "Africa"
+    },
+    {
+        "id": 4,
+        "continente": "Europa"
+    },
+    {
+        "id": 5,
+        "continente": "Oceanía"
+    }
+  ],
+  "pais": [
+    {
+        "id": 1,
+        "pais": "Chile",
+        "continente": 1
+    },
+    {
+        "id": 2,
+        "pais": "Alemania",
+        "continente": 4
+    },
+    {
+        "id": 3,
+        "pais": "Canada",
+        "continente": 2
+    },
+    {
+        "id": 4,
+        "pais": "Australia",
+        "continente": 5
+    },
+    {
+        "id": 5,
+        "pais": "Marruecos",
+        "continente": 3
+    }
+  ],
+  "ciudad": [
+    {
+        "id": 1,
+        "ciudad": "Santiago",
+        "pais": 1
+    },
+    {
+        "id": 2,
+        "ciudad": "Iquique",
+        "pais": 1
+    },
+    {
+        "id": 3,
+        "ciudad": "Viña del Mar",
+        "pais": 1
+    },
+    {
+        "id": 5,
+        "ciudad": "Chillan",
+        "pais": 1
+    },
+    {
+        "id": 6,
+        "ciudad": "Talca",
+        "pais": 1
+    } 
+  ],
+  "comuna": [
+    {
+        "id": 1,
+        "comuna": "Las Condes",
+        "ciudad": 1
+    },
+    {
+        "id": 2,
+        "comuna": "Alto Hospicio",
+        "ciudad": 2
+    },
+    {
+        "id": 3,
+        "comuna": "Zapallar",
+        "ciudad": 3
+    },
+    {
+        "id": 4,
+        "comuna": "Yungay",
+        "ciudad": 5
+    },
+    {
+        "id": 5,
+        "comuna": "Maule",
+        "ciudad": 6
+    }
+  ],
+  "tipo_proovedor": [
+    {
+        "id": 1,
+        "tipo_proovedor": "Fabricante",
+        "desc_tipo_proovedor": "Es quien fábrica los productos para su consumo."
+    },
+    {
+        "id": 2,
+        "tipo_proovedor": "Mayorista",
+        "desc_tipo_proovedor": "Es quien fábrica los productos para su consumo."
+    },
+    {
+        "id": 3,
+        "tipo_proovedor": "Minorista",
+        "desc_tipo_proovedor": "e relaciona directamente con los destinatario final del producto ya sea utilizando un establecimiento u otro mecanismo de venta."
+    },
+    {
+        "id": 4,
+        "tipo_proovedor": "Distribuidor",
+        "desc_tipo_proovedor": "aquella empresa que lleva hasta los consumidores finales los productos o servicios de otros ya sea a través de una red de tiendas, o bien en sistemas a distancia como catálogos e Internet."
+    },
+    {
+        "id": 5,
+        "tipo_proovedor": "Importador",
+        "desc_tipo_proovedor": "es el que realiza las importaciones, lo que significa que compra productos  o servicios en otros países y los lleva a su país."
+    },
+    {
+        "id": 6,
+        "tipo_proovedor": "Exportador",
+        "desc_tipo_proovedor": "Es el que se encarga de la venta de productos de su país en otro."
+    }
+  ],
+  "tipo_producto": [
+    {
+        "id": 1,
+        "tipo_producto": "jeans",
+        "desc_tipo_producto": "Pantalón confeccionado con tela vaquera o tejana."
+    },
+    {
+        "id": 2,
+        "tipo_producto": "Polera",
+        "desc_tipo_producto": "Camiseta deportiva de manga corta."
+    },
+    {
+        "id": 3,
+        "tipo_producto": "Ropa interior",
+        "desc_tipo_producto": "Es diseñada para proteger la ropa de uso externo."
+    },
+    {
+        "id": 5,
+        "tipo_producto": "Short",
+        "desc_tipo_producto": "Es una prenda de vestir que cubre las piernas parcialmente, a partir de la cintura."
+    },
+    {
+        "id": 6,
+        "tipo_producto": "Chaqueta",
+        "desc_tipo_producto": "Prenda de vestir que cubre el cuerpo hasta más abajo de la cadera, con mangas la cual suele llevarse sobre otras prendas como prenda de abrigo."
+    }
+  ],
+  "banco": [
+    {
+        "id": 1,
+        "nombre_banco": "Banco estado",
+        "ciudad_banco": 1,
+        "pais_banco": 1
+    },
+    {
+        "id": 2,
+        "nombre_banco": "Banco de Chile",
+        "ciudad_banco": 3,
+        "pais_banco": 1
+    },
+    {
+        "id": 3,
+        "nombre_banco": "Banco bci",
+        "ciudad_banco": 3,
+        "pais_banco": 1
+    },
+    {
+        "id": 4,
+        "nombre_banco": "Banco Scotiabank",
+        "ciudad_banco": 6,
+        "pais_banco": 1
+    },
+    {
+        "id": 5,
+        "nombre_banco": "Banco Itau",
+        "ciudad_banco": 5,
+        "pais_banco": 1
+    }
+  ],
+  "tipo_tarjeta": [
+    {
+        "id": 3,
+        "tipo_tarjeta": "Mastercard",
+        "desc_tipo_pago": "proporciona a las instituciones financieras productos de pago con la marca Mastercard que luego usan para ofrecer programas de crédito, débito, prepago y acceso a efectivo a sus clientes",
+        "banco": 3
+    },
+    {
+        "id": 4,
+        "tipo_tarjeta": "Visa",
+        "desc_tipo_pago": "Tarjetas de pago que utilizan la red Visa. Las instituciones financieras trabajan con Visa para utilizar la red de la empresa.",
+        "banco": 1
+    }
+  ],
+  "tipo_pago": [
+    {
+        "id": 1,
+        "tipo_pago": "Debito",
+        "desc_tipo_pago": "Es una tarjeta que sirve para utilizar los fondos depositados en la cuenta corriente o de ahorro",
+        "tipo_tarjeta": 4
+    },
+    {
+        "id": 2,
+        "tipo_pago": "Credito",
+        "desc_tipo_pago": "es posible hacer pagos u obtener fondos, hasta cierto límite, a crédito y en cuotas con plazos.",
+        "tipo_tarjeta": 3
+    }
+  ],
+  "talla_ropa": [
+    {
+        "id": 1,
+        "talla_ropa": "XS",
+        "desc_talla_ropa": "Extremadamente Pequeña",
+        "medidas": "Talla 34, Busto 80, Cadera 86-88, Cintura 60-62"
+    },
+    {
+        "id": 2,
+        "talla_ropa": "S",
+        "desc_talla_ropa": "Pequeña",
+        "medidas": "Talla 36, Busto 85, Cadera 89-92, Cintura 64-66"
+    },
+    {
+        "id": 3,
+        "talla_ropa": "M",
+        "desc_talla_ropa": "Mediano",
+        "medidas": "Talla 40, Busto 95, Cadera 97-100, Cintura 71-74"
+    },
+    {
+        "id": 4,
+        "talla_ropa": "L",
+        "desc_talla_ropa": "Largo",
+        "medidas": "Talla 46, Busto 110, Cadera 109-112, Cintura 83-96"
+    },
+    {
+        "id": 5,
+        "talla_ropa": "XL",
+        "desc_talla_ropa": "Extremadamente Larga",
+        "medidas": "Talla 48, Busto 115, Cadera 113-116, Cintura 87-90"
+    }
+  ],
+  "color": [
+    {
+        "id": 5,
+        "color": "Negro",
+        "rgb": "0.0.0",
+        "hex": "#000000"
+    },
+    {
+        "id": 6,
+        "color": "Blanco",
+        "rgb": "255.255.255",
+        "hex": "#FFFFFF"
+    },
+    {
+        "id": 7,
+        "color": "Rojo",
+        "rgb": "255.0.0",
+        "hex": "#FFF0000"
+    },
+    {
+        "id": 8,
+        "color": "Azul",
+        "rgb": "0.0.255",
+        "hex": "#0000FF"
+    },
+    {
+        "id": 9,
+        "color": "Verde",
+        "rgb": "0.255.0",
+        "hex": "#00FF00"
+    }
+  ],
+  "tipo_cuenta": [
+    {
+        "id": 4,
+        "nombre_tipo": "Vendedor",
+        "desc": "Vendedor de sucursal",
+        "nivel_staff": 2
+    },
+    {
+        "id": 5,
+        "nombre_tipo": "Bodeguero",
+        "desc": "Bodeguero de sucursal",
+        "nivel_staff": 1
+    },
+    {
+        "id": 6,
+        "nombre_tipo": "Gerente",
+        "desc": "Gerente de Sucursal",
+        "nivel_staff": 3
+    }
+  ],
+  "empleado": [
+    {
+        "id": 7,
+        "nombre_unico": "juan_gomez",
+        "nombre": "Juan",
+        "apellido": "Gomez",
+        "email": "juangomez@sucursal.cl",
+        "password": "123456789",
+        "celular": "938771123",
+        "nacimiento": "1985-03-03",
+        "sexo": 1,
+        "comuna": 1,
+        "tipo_cuenta": 3
+    },
+    {
+        "id": 8,
+        "nombre_unico": "cesar_fuentes",
+        "nombre": "Cesar",
+        "apellido": "Fuentes",
+        "email": "cesar_fuentes@sucursal.cl",
+        "password": "123456789",
+        "celular": "938771123",
+        "nacimiento": "1985-03-03",
+        "sexo": 1,
+        "comuna": 1,
+        "tipo_cuenta": 1
+    },
+    {
+        "id": 9,
+        "nombre_unico": "guillermo_noriel",
+        "nombre": "Guillermo",
+        "apellido": "Noriel",
+        "email": "guillermo_noriel@sucursal.cl",
+        "password": "123456789",
+        "celular": "954678234",
+        "nacimiento": "1968-03-03",
+        "sexo": 2,
+        "comuna": 1,
+        "tipo_cuenta": 1
+    },
+    {
+        "id": 10,
+        "nombre_unico": "alonso_kevin",
+        "nombre": "Alonso",
+        "apellido": "Kevin",
+        "email": "alonsokevin@sucursal.cl",
+        "password": "123456789",
+        "celular": "954678234",
+        "nacimiento": "1968-03-03",
+        "sexo": 2,
+        "comuna": 1,
+        "tipo_cuenta": 1
+    }
+  ],
+  "clientes": [
+    {
+        "id": 1,
+        "nombre_unico": "Juanpi",
+        "nombre": "Juan",
+        "apellido": "Palacio",
+        "email": "Juanitopalacio1@gmail.com",
+        "password": "1234567j",
+        "celular": "12345678",
+        "nacimiento": "1988-12-31",
+        "sexo": 1,
+        "comuna": 5
+    },
+    {
+        "id": 2,
+        "nombre_unico": "Carlita",
+        "nombre": "Carla",
+        "apellido": "Muñoz",
+        "email": "carlamuz98@gmai.com",
+        "password": "cami98765",
+        "celular": "98765432",
+        "nacimiento": "2002-10-16",
+        "sexo": 2,
+        "comuna": 2
+    },
+    {
+        "id": 3,
+        "nombre_unico": "Raulcito",
+        "nombre": "Raul",
+        "apellido": "Campos",
+        "email": "racampos55@gmail.com",
+        "password": "raul9898",
+        "celular": "966554433",
+        "nacimiento": "2008-07-20",
+        "sexo": 1,
+        "comuna": 3
+    },
+    {
+        "id": 4,
+        "nombre_unico": "Cris",
+        "nombre": "Cristian",
+        "apellido": "Lopez",
+        "email": "crislop97@gmail.com",
+        "password": "cris654",
+        "celular": "78451203",
+        "nacimiento": "2008-09-01",
+        "sexo": 1,
+        "comuna": 4
+    },
+    {
+        "id": 5,
+        "nombre_unico": "Vale",
+        "nombre": "Valeria",
+        "apellido": "Rojas",
+        "email": "valecitar@gmail.com",
+        "password": "valer987",
+        "celular": "99536278",
+        "nacimiento": "1999-01-01",
+        "sexo": 2,
+        "comuna": 5
+    }
+  ],
+  "sucursal": [
+    {
+        "id": 11,
+        "nombre_sucursal": "San Benito",
+        "telefono": "9 6468 3596",
+        "gerente": 7,
+        "comuna": 1
+    },
+    {
+        "id": 12,
+        "nombre_sucursal": "San Benito 2",
+        "telefono": "9 6468 3595",
+        "gerente": 7,
+        "comuna": 2
+    }
+  ],
+  "bodega": [
+    {
+        "id": 6,
+        "nombre_bodega": "Bodega Alto Las Condes",
+        "telefono": "9 6468 3596",
+        "encargado": 9,
+        "comuna": 1
+    },
+    {
+        "id": 7,
+        "nombre_bodega": "Bodega Alto Las Condes 2",
+        "telefono": "9 6468 3597",
+        "encargado": 10,
+        "comuna": 1
+    }
+  ],
+  "proovedor": [
+    {
+        "id": 1,
+        "nombre_unico": "cesar",
+        "nombre_proovedor": "Cesar",
+        "email_proovedor": "Cesarrojas@gmail.com",
+        "celular_proovedor": "98989695",
+        "tipo_proovedor": 1,
+        "comuna": 5
+    },
+    {
+        "id": 2,
+        "nombre_unico": "Jose",
+        "nombre_proovedor": "Jose Luis",
+        "email_proovedor": "Joseluchin33@gmail.com",
+        "celular_proovedor": "65653424",
+        "tipo_proovedor": 2,
+        "comuna": 4
+    },
+    {
+        "id": 3,
+        "nombre_unico": "Oscar",
+        "nombre_proovedor": "Oscar",
+        "email_proovedor": "Oscarcares54@gmail.com",
+        "celular_proovedor": "38951402",
+        "tipo_proovedor": 3,
+        "comuna": 2
+    },
+    {
+        "id": 4,
+        "nombre_unico": "Cristina",
+        "nombre_proovedor": "Cristina",
+        "email_proovedor": "Cristirojas45@gmail.com",
+        "celular_proovedor": "01253478",
+        "tipo_proovedor": 4,
+        "comuna": 1
+    },
+    {
+        "id": 5,
+        "nombre_unico": "Ale",
+        "nombre_proovedor": "Alejandro",
+        "email_proovedor": "alejandroc78@gmail.com",
+        "celular_proovedor": "78451203",
+        "tipo_proovedor": 6,
+        "comuna": 1
+    }
+  ],
+  "promocion": [
+    {
+        "id": 2,
+        "nombre_promocion": "Remate",
+        "desc": "Remate de ropa interior femenina",
+        "fecha_inicio": "2023-02-16",
+        "fecha_fin": "2023-05-04"
+    },
+    {
+        "id": 3,
+        "nombre_promocion": "Liquidacion",
+        "desc": "liquidacion todo hombre",
+        "fecha_inicio": "2023-12-01",
+        "fecha_fin": "2023-05-20"
+    },
+    {
+        "id": 4,
+        "nombre_promocion": "gibcard",
+        "desc": "gibcard por comprar superiores a 50000",
+        "fecha_inicio": "2021-07-01",
+        "fecha_fin": "2021-08-13"
+    },
+    {
+        "id": 5,
+        "nombre_promocion": "descuento",
+        "desc": "50% de descuento en poleras mujer",
+        "fecha_inicio": "2021-12-25",
+        "fecha_fin": "2022-03-03"
+    }
+  ],
+  "cupon_descuento": [
+    {
+        "id": 1,
+        "nombre_desct": "super lunes",
+        "desc": "lunes de 10% de descuento en ropa interior",
+        "fecha_inicio": "2023-03-27",
+        "fecha_fin": "2023-05-29"
+    },
+    {
+        "id": 2,
+        "nombre_desct": "2x1",
+        "desc": "todas las prendas 2x1 se hombre",
+        "fecha_inicio": "2023-03-10",
+        "fecha_fin": "2023-06-09"
+    },
+    {
+        "id": 3,
+        "nombre_desct": "cupon de descuento",
+        "desc": "cupones de descuento para todo tipo de ropa",
+        "fecha_inicio": "2023-03-13",
+        "fecha_fin": "2022-03-09"
+    },
+    {
+        "id": 4,
+        "nombre_desct": "martes locos",
+        "desc": "todo polerones con 25% de descuento",
+        "fecha_inicio": "2020-02-05",
+        "fecha_fin": "2020-03-11"
+    },
+    {
+        "id": 5,
+        "nombre_desct": "viernes de remate",
+        "desc": "poleras mujer con 80% de descuento",
+        "fecha_inicio": "2014-01-01",
+        "fecha_fin": "2014-01-31"
+    }
+  ],
+  "cliente_cupon_descuento": [
+    {
+        "id": 1,
+        "cliente": 1,
+        "cupon_descuento": 1
+    },
+    {
+        "id": 2,
+        "cliente": 4,
+        "cupon_descuento": 2
+    },
+    {
+        "id": 3,
+        "cliente": 5,
+        "cupon_descuento": 5
+    },
+    {
+        "id": 4,
+        "cliente": 2,
+        "cupon_descuento": 4
+    },
+    {
+        "id": 5,
+        "cliente": 4,
+        "cupon_descuento": 2
+    }
+  ],
+  "categoria": [
+    {
+        "id": 7,
+        "tipo_categoria": "poleron",
+        "desc": "poleron con capucha",
+        "en_promo": 2
+    },
+    {
+        "id": 8,
+        "tipo_categoria": "polera",
+        "desc": "polera de vestir",
+        "en_promo": 3
+    },
+    {
+        "id": 9,
+        "tipo_categoria": "ropa interior",
+        "desc": "ropa interior para proteger ropa exterior",
+        "en_promo": 5
+    },
+    {
+        "id": 11,
+        "tipo_categoria": "pantalon",
+        "desc": "pantalon de vestir formal",
+        "en_promo": 4
+    },
+    {
+        "id": 12,
+        "tipo_categoria": "zapatos",
+        "desc": "zapatillas de todos los modelos",
+        "en_promo": 3
+    }
+  ],
+  "edad_ropa": [
+    {
+        "id": 1,
+        "rango_edad": "13-20",
+        "desc": "Adolecente"
+    },
+    {
+        "id": 2,
+        "rango_edad": "21-38",
+        "desc": "Juventud"
+    },
+    {
+        "id": 4,
+        "rango_edad": "30-45",
+        "desc": "Adultez"
+    },
+    {
+        "id": 5,
+        "rango_edad": "46-60",
+        "desc": "mayor"
+    }
+  ],
+  "producto": [
+    {
+        "id": 1,
+        "nombre_producto": "zapatillas deportivas",
+        "descripcion": "zapatillas deportivas futbol",
+        "precio": 50000,
+        "categoria_producto": 12,
+        "sexo": 3,
+        "edad_de_ropa": 2,
+        "talla_ropa": 3,
+        "color": 5
+    },
+    {
+        "id": 2,
+        "nombre_producto": "polera",
+        "descripcion": "polera formal con cuello v",
+        "precio": 25000,
+        "categoria_producto": 8,
+        "sexo": 2,
+        "edad_de_ropa": 4,
+        "talla_ropa": 4,
+        "color": 7
+    },
+    {
+        "id": 3,
+        "nombre_producto": "poleron",
+        "descripcion": "poleron con estampado",
+        "precio": 30000,
+        "categoria_producto": 7,
+        "sexo": 1,
+        "edad_de_ropa": 5,
+        "talla_ropa": 5,
+        "color": 6
+    },
+    {
+        "id": 4,
+        "nombre_producto": "boxer",
+        "descripcion": "boxer largos con lineas y puntos",
+        "precio": 15000,
+        "categoria_producto": 9,
+        "sexo": 1,
+        "edad_de_ropa": 2,
+        "talla_ropa": 2,
+        "color": 8
+    },
+    {
+        "id": 5,
+        "nombre_producto": "jeans",
+        "descripcion": "pantalones con 3 botones rotos",
+        "precio": 45000,
+        "categoria_producto": 11,
+        "sexo": 2,
+        "edad_de_ropa": 1,
+        "talla_ropa": 3,
+        "color": 9
+    }
+  ],
+  "tipo_estado": [
+    {
+        "id": 1,
+        "estado": "pendiente",
+        "desct": "Cuando un pedido aun no se procesa"
+    },
+    {
+        "id": 2,
+        "estado": "en espera",
+        "desct": "se está a punto de realizar el proceso"
+    },
+    {
+        "id": 3,
+        "estado": "procesando",
+        "desct": "cuando el producto lo estan buscando,etc"
+    },
+    {
+        "id": 4,
+        "estado": "completado",
+        "desct": "cuando tu pedido esta listo"
+    },
+    {
+        "id": 5,
+        "estado": "reembolsado",
+        "desct": "cuando el dinero es devuelto por un problema"
+    }
+  ],
+  "tipo_impreso": [
+    {
+        "id": 1,
+        "tipo": "boleta",
+        "desct": "Es el documento tributario que se le entrega al consumidor final"
+    },
+    {
+        "id": 2,
+        "tipo": "Factura",
+        "desct": "Es el documento tributario que se le entrega al consumidor final"
+    }
+  ],
+  "tipo_pedido": [
+    {
+        "id": 1,
+        "tipo": "online",
+        "desct": "es la formalización de la intención de un consumidor de comprar un producto o contratar un servicio"
+    },
+    {
+        "id": 2,
+        "tipo": "presencial",
+        "desct": "el cliente elige el producto y lo compra"
+    }
+  ],
+  "tipo_envio": [
+    {
+        "id": 2,
+        "tipo": "despacho",
+        "desct": "cuando la persona desea que su pedido llegue a un destino"
+    },
+    {
+        "id": 3,
+        "tipo": "retiro",
+        "desct": "La persona retira el producto en la tienda"
+    }
+  ],
+  "tipo_hogar": [
+    {
+        "id": 1,
+        "tipo": "casa",
+        "desct": "Hogar de 1 o 2 pisos"
+    },
+    {
+        "id": 2,
+        "tipo": "departamento",
+        "desct": "conjunto residencial en los cuales se encuentras mas propiedades"
+    },
+    {
+        "id": 3,
+        "tipo": "otro",
+        "desct": "no describe si es departamento o casa donde se envia el pedido"
+    }
+  ],
+  "direcciones_clientes": [
+    {
+        "id": 1,
+        "direccion": "juanita 1212",
+        "otros": "casa 2 pisos blanca",
+        "cliente": 1,
+        "comuna": 1,
+        "tipo_hogar": 1
+    },
+    {
+        "id": 2,
+        "direccion": "alonsoreino 345",
+        "otros": "torre a departamento 55",
+        "cliente": 2,
+        "comuna": 2,
+        "tipo_hogar": 2
+    },
+    {
+        "id": 3,
+        "direccion": "kenedy 555",
+        "otros": "empresa sii",
+        "cliente": 3,
+        "comuna": 3,
+        "tipo_hogar": 3
+    },
+    {
+        "id": 4,
+        "direccion": "bartolome 6667",
+        "otros": "perro bravo casa color verde",
+        "cliente": 3,
+        "comuna": 4,
+        "tipo_hogar": 1
+    },
+    {
+        "id": 5,
+        "direccion": "vecinal",
+        "otros": "departamento cafe puerta blanca piso 4",
+        "cliente": 5,
+        "comuna": 5,
+        "tipo_hogar": 2
+    }
+  ],
+  "inventario": [
+    {
+        "id": 6,
+        "descripcion": "Stock del producto disponible en Bodega",
+        "stock_disponible": 100,
+        "stock_en_camino": 20,
+        "stock_en_espera": 50,
+        "stock_vendido": 500,
+        "stock_devolucion": 100,
+        "producto": 1,
+        "bodega": 6
+    }
+  ]
+}

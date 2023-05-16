@@ -22,6 +22,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('carga_masiva/', views.carga_masiva, name='carga_masiva'),
     #path('cargar-pokemons/', views.cargar_pokemons, name='cargar_pokemons'),
 
 ]

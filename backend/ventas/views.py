@@ -1,7 +1,47 @@
 import requests
 from django.http import JsonResponse
+from django.apps import apps
 from .models import *
 import json
+
+
+###Primer Paso###
+#En Postman, crea una nueva solicitud de tipo "POST" 
+#para la URL correspondiente a tu vista de carga masiva en Django.
+
+###Segundo Paso###
+#En la sección "Body" de la solicitud en Postman, selecciona "form-data".
+
+###Tercer Paso###
+#Agrega un campo de formulario con el nombre "archivo" 
+#y selecciona el archivo JSON que deseas cargar. 
+#Asegurarse de seleccionar el archivo JSON que contiene los datos.
+def carga_masiva(request):
+    if request.method == 'POST' and 'archivo' in request.FILES:
+        archivo = request.FILES['archivo']
+        
+        try:
+            datos = json.load(archivo)
+            
+            # Procesar los datos y guardarlos en la base de datos
+            for clave, registros in datos.items():
+                if clave in apps.all_models:
+                    Modelo = apps.get_model(app_label='ventas', model_name='Venta')
+                    for registro in registros:
+                        nombre = registro.get('nombre')
+                        
+                        # Verificar si el nombre ya existe en la base de datos
+                        if nombre and Modelo.objects.filter(nombre=nombre).exists():
+                            continue  # Si el nombre ya existe, pasa al siguiente registro
+                        
+                        Modelo.objects.create(**registro)
+            
+            return JsonResponse({'mensaje': 'Carga masiva exitosa.'})
+        
+        except json.JSONDecodeError:
+            return JsonResponse({'mensaje': 'Error al procesar el archivo JSON.'}, status=400)
+    
+    return JsonResponse({'mensaje': 'Solicitud incorrecta.'}, status=400)
 
 def home(request):
     return JsonResponse({'API': '127.0.0.1:8000/api', 'ADMIN':'127.0.0.1:8000/admin'})

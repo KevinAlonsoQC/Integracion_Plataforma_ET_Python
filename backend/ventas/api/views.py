@@ -13,7 +13,6 @@ def create_serializer_and_viewset(modelos):
         queryset = modelos.objects.all()
         serializer_class = Serializer
 
-        # Métodos adicionales de la vista aquí
         def create(self, request, *args, **kwargs):
             serializer = self.get_serializer(data=request.data)
             if serializer.is_valid():
@@ -27,7 +26,7 @@ def create_serializer_and_viewset(modelos):
 
 def get_dynamic_viewsets():
     """
-    Genera dinámicamente serializers y viewsets de DRF para todos los modelos de Django
+    Esto genera dinámicamente serializers y viewsets de DRF para todos los modelos de Django
     registrados en la aplicación, excluyendo ciertos modelos
     """
     # Lista de nombres de modelos a excluir

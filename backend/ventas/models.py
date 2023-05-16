@@ -391,7 +391,7 @@ class Inventario(models.Model): #31
 
     bodega=models.ForeignKey(Bodega, on_delete=models.CASCADE)#ForeignKey
 
-class Procesar_Pago(models.Model): #31
+class Procesar_Pagos(models.Model): #31
     id = models.AutoField(primary_key=True)
     
     cliente=models.ForeignKey(Clientes, on_delete=models.CASCADE, null=False) #ForeignKey
@@ -401,18 +401,18 @@ class Procesar_Pago(models.Model): #31
     def __str__(self):
         return self.cliente.nombre+' '+self.cliente.apellido+' | Orden: '+self.orden.numero_orden
 
-class Recepcion_Pago(models.Model): #31
+class Recepcion_Pagos(models.Model): #31
     id = models.AutoField(primary_key=True)
     
-    recepcion=models.ForeignKey(Procesar_Pago, on_delete=models.CASCADE, null=False) #ForeignKey
+    recepcion=models.ForeignKey(Procesar_Pagos, on_delete=models.CASCADE, null=False) #ForeignKey
     cliente=models.ForeignKey(Clientes, on_delete=models.CASCADE, null=False) #ForeignKey
     orden=models.ForeignKey(Orden, on_delete=models.CASCADE, null=False) #ForeignKey
     fecha_recepcion=models.DateField(auto_now_add=True, verbose_name="Fecha_Recepcion_Pago", null=False)
 
-class Rechazo_Pago(models.Model): #31
+class Rechazo_Pagos(models.Model): #31
     id = models.AutoField(primary_key=True)
     
-    recepcion=models.ForeignKey(Procesar_Pago, on_delete=models.CASCADE, null=False) #ForeignKey
+    recepcion=models.ForeignKey(Procesar_Pagos, on_delete=models.CASCADE, null=False) #ForeignKey
     cliente=models.ForeignKey(Clientes, on_delete=models.CASCADE, null=False) #ForeignKey
     orden=models.ForeignKey(Orden, on_delete=models.CASCADE, null=False) #ForeignKey
     fecha_rechazo=models.DateField(auto_now_add=True, verbose_name="Fecha_Rechazo_Pago", null=False)
