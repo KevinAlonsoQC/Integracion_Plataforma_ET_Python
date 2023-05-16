@@ -334,7 +334,7 @@
         "nacimiento": "1985-03-03",
         "sexo": 1,
         "comuna": 1,
-        "tipo_cuenta": 3
+        "tipo_cuenta": 6
     },
     {
         "id": 8,
@@ -347,7 +347,7 @@
         "nacimiento": "1985-03-03",
         "sexo": 1,
         "comuna": 1,
-        "tipo_cuenta": 1
+        "tipo_cuenta": 5
     },
     {
         "id": 9,
@@ -360,7 +360,7 @@
         "nacimiento": "1968-03-03",
         "sexo": 2,
         "comuna": 1,
-        "tipo_cuenta": 1
+        "tipo_cuenta": 4
     },
     {
         "id": 10,
@@ -373,7 +373,7 @@
         "nacimiento": "1968-03-03",
         "sexo": 2,
         "comuna": 1,
-        "tipo_cuenta": 1
+        "tipo_cuenta": 4
     }
   ],
   "clientes": [
