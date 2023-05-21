@@ -438,22 +438,6 @@
         "comuna": 5
     }
   ],
-  "sucursal": [
-    {
-        "id": 11,
-        "nombre_sucursal": "San Benito",
-        "telefono": "9 6468 3596",
-        "gerente": 7,
-        "comuna": 1
-    },
-    {
-        "id": 12,
-        "nombre_sucursal": "San Benito 2",
-        "telefono": "9 6468 3595",
-        "gerente": 7,
-        "comuna": 2
-    }
-  ],
   "bodega": [
     {
         "id": 6,
@@ -470,51 +454,43 @@
         "comuna": 1
     }
   ],
+  "sucursal": [
+    {
+        "id": 11,
+        "nombre_sucursal": "San Benito",
+        "telefono": "9 6468 3596",
+        "gerente": 7,
+        "comuna": 1,
+        "bodega_sucursal": 6
+
+    },
+    {
+        "id": 12,
+        "nombre_sucursal": "San Benito 2",
+        "telefono": "9 6468 3595",
+        "gerente": 7,
+        "comuna": 2,
+        "bodega_sucursal": 7
+    }
+  ],
   "proovedor": [
     {
         "id": 1,
-        "nombre_unico": "cesar",
-        "nombre_proovedor": "Cesar",
-        "email_proovedor": "Cesarrojas@gmail.com",
+        "nombre_unico": "sneakes_cl",
+        "nombre_proovedor": "Industrias Sneakers",
+        "email_proovedor": "industrias@sneakers.com",
         "celular_proovedor": "98989695",
         "tipo_proovedor": 1,
         "comuna": 5
     },
     {
         "id": 2,
-        "nombre_unico": "Jose",
-        "nombre_proovedor": "Jose Luis",
-        "email_proovedor": "Joseluchin33@gmail.com",
+        "nombre_unico": "Ameciran_Cloth",
+        "nombre_proovedor": "Ameciran Cloth",
+        "email_proovedor": "cloth@ameciran.com",
         "celular_proovedor": "65653424",
         "tipo_proovedor": 2,
         "comuna": 4
-    },
-    {
-        "id": 3,
-        "nombre_unico": "Oscar",
-        "nombre_proovedor": "Oscar",
-        "email_proovedor": "Oscarcares54@gmail.com",
-        "celular_proovedor": "38951402",
-        "tipo_proovedor": 3,
-        "comuna": 2
-    },
-    {
-        "id": 4,
-        "nombre_unico": "Cristina",
-        "nombre_proovedor": "Cristina",
-        "email_proovedor": "Cristirojas45@gmail.com",
-        "celular_proovedor": "01253478",
-        "tipo_proovedor": 4,
-        "comuna": 1
-    },
-    {
-        "id": 5,
-        "nombre_unico": "Ale",
-        "nombre_proovedor": "Alejandro",
-        "email_proovedor": "alejandroc78@gmail.com",
-        "celular_proovedor": "78451203",
-        "tipo_proovedor": 6,
-        "comuna": 1
     }
   ],
   "promocion": [
