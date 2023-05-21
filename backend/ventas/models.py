@@ -355,7 +355,7 @@ class Orden(models.Model):
     #Este está en NULL TRUE, porque si es retiro presencial, no debería marcar una sucursal
     direccion=models.ForeignKey(Direcciones_Clientes, on_delete=models.CASCADE, null=True)#ForeignKey
     #Este está en NULL TRUE, porque si el pago es online, no debería marcar una sucursal
-    sucursal=models.ForeignKey(Sucursal, on_delete=models.CASCADE, null=True)#ForeignKey
+    sucursal=models.ForeignKey(Sucursal, on_delete=models.CASCADE, null=False)#ForeignKey
     #Este está en NULL TRUE, porque si el pago es online, no debería marcar un vendedor
     vendedor=models.ForeignKey(Empleado, on_delete=models.CASCADE, null=True)#ForeignKey
     

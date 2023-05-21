@@ -459,6 +459,13 @@
         "telefono": "9 6468 3517",
         "encargado": 10,
         "comuna": 1
+    },
+    {
+        "id": 8,
+        "nombre_bodega": "Bodega Central",
+        "telefono": "2 6545 2145",
+        "encargado": 8,
+        "comuna": 1
     }
   ],
   "sucursal": [
@@ -483,6 +490,14 @@
         "id": 13,
         "nombre_sucursal": "San Benito 3",
         "telefono": "9 6468 1254",
+        "gerente": 7,
+        "comuna": 1,
+        "bodega_sucursal": 8
+    },
+    {
+        "id": 14,
+        "nombre_sucursal": "Online",
+        "telefono": "2 5445 5458",
         "gerente": 7,
         "comuna": 1,
         "bodega_sucursal": 8
@@ -846,6 +861,17 @@
         "stock_devolucion": 100,
         "producto": 1,
         "bodega": 6
+    },
+    {
+        "id": 7,
+        "descripcion": "Stock del Producto",
+        "stock_disponible": 1000,
+        "stock_en_camino": 10,
+        "stock_en_espera": 20,
+        "stock_vendido": 5000,
+        "stock_devolucion": 10,
+        "producto": 3,
+        "bodega": 8
     }
   ]
 }

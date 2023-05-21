@@ -25,33 +25,39 @@ def create_serializer_and_viewset(modelos):
                 # Los datos recibidos son válidos, podemos crear un nuevo objeto
                 print('Modelo: '+nombre_modelo)
 
-                if nombre_modelo == 'Detalle_Orden':
+                if nombre_modelo == 'Detalle_Orden': #Solo ocurrirá cuando se inserta un dato al modelo "Detalle_Orden"
                     producto = request.data.get('producto')
-                    for llave, valor in request.data.items():
-                        if llave == 'numero_orden':
-                            id_orden = Orden.objects.filter(id=valor).first()
-                            if id_orden is not None:
-                                sucursal = Sucursal.objects.filter(id=id_orden.sucursal.id).first()
-                                if sucursal is not None:
-                                    bodega = Bodega.objects.filter(id=sucursal.bodega_sucursal.id).first()
-                                    if bodega is not None:
-                                        inventario = Inventario.objects.filter(bodega=bodega, producto=producto)
-                                        print('Existe el inventario y el producto')
-                                        for stock in inventario:
-                                            print('ID:', stock.id)
-                                            print('Producto:', stock.producto)
-                                            print('Descripción:', stock.descripcion)
-                                            print('Stock Disponible:', stock.stock_disponible)
-                                            print('Stock en Camino:', stock.stock_en_camino)
-                                            print('Stock en Espera:', stock.stock_en_espera)
-                                            print('Stock Vendido:', stock.stock_vendido)
-                                            print('Stock Devolución:', stock.stock_devolucion)
-                                            print('Bodega:', stock.bodega)
-                                            print('------------------')
+                    cantidad_comprada = request.data.get('cantidad')
+                    
+                    id_orden = Orden.objects.filter(id=request.data.get('numero_orden')).first()
+                    if id_orden is None:
+                        print('No existe esa Orden. Error con el orden ID:', request.data.get('numero_orden'))
+                        return JsonResponse({'Mensaje': 'No existe esa Orden. Error con el orden ID: ' + request.data.get('numero_orden')})
+                    
+                    sucursal = Sucursal.objects.filter(id=id_orden.sucursal.id).first()
+                    if sucursal is None:
+                        print('No existe la sucursal asociada a la Orden.')
+                        return JsonResponse({'Mensaje': 'No existe la sucursal asociada a la Orden.'})
+                    
+                    bodega = Bodega.objects.filter(id=sucursal.bodega_sucursal.id).first()
+                    if bodega is None:
+                        print('No existe la bodega asociada a la sucursal.')
+                        return JsonResponse({'Mensaje': 'No existe la bodega asociada a la sucursal.'})
+                    
+                    inventario = Inventario.objects.filter(bodega=bodega, producto=producto)
+                    if inventario.exists():
+                        print('Existe el inventario y el producto')
+                        for stock in inventario:
+                            print('------------------')
+                            print('Nombre Bodega:', stock.bodega)
+                            print('Producto:', stock.producto)
+                            print('Stock Disponible:', stock.stock_disponible)
+                            print('Cantidad que lleva el cliente:', cantidad_comprada)
+                            print('------------------')
+                    else:
+                        print('No existe inventario para el producto en la bodega.')
+                        return JsonResponse({'Mensaje': 'No existe inventario para el producto en la bodega.'})
 
-                            else:
-                                print('No existe esa Orden. Error con el orden ID: '+valor)
-                                return JsonResponse({'Mensaje':'No existe esa Orden. Error con el orden ID: '+valor})
                             
 
                     
