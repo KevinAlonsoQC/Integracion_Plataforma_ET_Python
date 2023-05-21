@@ -452,6 +452,13 @@
         "telefono": "9 6468 3597",
         "encargado": 10,
         "comuna": 1
+    },
+    {
+        "id": 8,
+        "nombre_bodega": "Bodega Alto Las Condes 3",
+        "telefono": "9 6468 3517",
+        "encargado": 10,
+        "comuna": 1
     }
   ],
   "sucursal": [
@@ -471,6 +478,14 @@
         "gerente": 7,
         "comuna": 2,
         "bodega_sucursal": 7
+    },
+    {
+        "id": 13,
+        "nombre_sucursal": "San Benito 3",
+        "telefono": "9 6468 1254",
+        "gerente": 7,
+        "comuna": 1,
+        "bodega_sucursal": 8
     }
   ],
   "proovedor": [

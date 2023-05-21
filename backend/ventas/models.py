@@ -345,7 +345,7 @@ class Direcciones_Clientes(models.Model): #28
 class Orden(models.Model):
     id = models.AutoField(primary_key=True)
     numero_orden=models.CharField(max_length=100, verbose_name='Numero_Orden', null=False)
-    precio_total=models.CharField(max_length=250, verbose_name='Precio_Total', null=False)
+    #precio_total=models.CharField(max_length=250, verbose_name='Precio_Total', null=False)
     fecha_orden=models.DateField(auto_now_add=True, verbose_name="Fecha_Orden", null=False)
 
     comprador=models.ForeignKey(Clientes, on_delete=models.CASCADE)#ForeignKey
@@ -391,6 +391,26 @@ class Inventario(models.Model): #31
     stock_devolucion=models.IntegerField(verbose_name='Stock_Devolucion', null=False) 
 
     bodega=models.ForeignKey(Bodega, on_delete=models.CASCADE)#ForeignKey
+
+class Orden_Despacho(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    bodega_recepcion = models.ForeignKey(Bodega, verbose_name='Bodega_Que_Recibe', related_name='ordenes_despacho_recepcion', on_delete=models.CASCADE)
+    bodega_emisor = models.ForeignKey(Bodega,verbose_name='Bodega_Que_Envia',related_name='ordenes_despacho_emisor',on_delete=models.CASCADE)
+    producto_envio=models.ForeignKey(Producto, on_delete=models.CASCADE) #ForeignKey
+    estado_despacho=models.ForeignKey(Tipo_Estado, on_delete=models.CASCADE)
+
+
+    def __str__(self):
+        return "Nro Orden: "+self.id+" | ID Bodega Recepcion: "+self.bodega_recepcion.nombre_bodega+" | ID Bodega Emisor: "+self.bodega_emisor.nombre_bodega
+
+class Detalle_Despacho(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    numero_orden=models.ForeignKey(Orden_Despacho, on_delete=models.CASCADE)  #ForeignKey
+    producto=models.ForeignKey(Producto, on_delete=models.CASCADE)  #ForeignKey
+    cantidad=models.IntegerField(verbose_name="Cantidad_Producto", null=False)
+    fecha_orden=models.DateField(auto_now_add=True, verbose_name="Fecha_Orden", null=False)
 
 class Procesar_Pagos(models.Model): #31
     id = models.AutoField(primary_key=True)

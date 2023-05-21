@@ -1,13 +1,15 @@
 from django.apps import apps
 from django.db import models
-from rest_framework import serializers, viewsets, status, routers
+from rest_framework import serializers, viewsets, routers
 from django.http import JsonResponse
+from ..models import *
 
 #ACÁ SOLO MODIFICAR LOS CREATE, DESTROY Y UPDATE DONDE DICE #AGREGAR VALIDACIONES ACÁ O ACTUALIZACIONES,ETC
 #ACÁ SOLO MODIFICAR LOS CREATE, DESTROY Y UPDATE DONDE DICE #AGREGAR VALIDACIONES ACÁ O ACTUALIZACIONES,ETC
 #ACÁ SOLO MODIFICAR LOS CREATE, DESTROY Y UPDATE DONDE DICE #AGREGAR VALIDACIONES ACÁ O ACTUALIZACIONES,ETC
 #ACÁ SOLO MODIFICAR LOS CREATE, DESTROY Y UPDATE DONDE DICE #AGREGAR VALIDACIONES ACÁ O ACTUALIZACIONES,ETC
 def create_serializer_and_viewset(modelos):
+    nombre_modelo = modelos.__name__  # Obtener el nombre del modelo
     class Serializer(serializers.ModelSerializer):
         class Meta:
             model = modelos
@@ -21,8 +23,40 @@ def create_serializer_and_viewset(modelos):
             serializer = self.get_serializer(data=request.data)
             if serializer.is_valid():
                 # Los datos recibidos son válidos, podemos crear un nuevo objeto
+                print('Modelo: '+nombre_modelo)
+
+                if nombre_modelo == 'Detalle_Orden':
+                    producto = request.data.get('producto')
+                    for llave, valor in request.data.items():
+                        if llave == 'numero_orden':
+                            id_orden = Orden.objects.filter(id=valor).first()
+                            if id_orden is not None:
+                                sucursal = Sucursal.objects.filter(id=id_orden.sucursal.id).first()
+                                if sucursal is not None:
+                                    bodega = Bodega.objects.filter(id=sucursal.bodega_sucursal.id).first()
+                                    if bodega is not None:
+                                        inventario = Inventario.objects.filter(bodega=bodega, producto=producto)
+                                        print('Existe el inventario y el producto')
+                                        for stock in inventario:
+                                            print('ID:', stock.id)
+                                            print('Producto:', stock.producto)
+                                            print('Descripción:', stock.descripcion)
+                                            print('Stock Disponible:', stock.stock_disponible)
+                                            print('Stock en Camino:', stock.stock_en_camino)
+                                            print('Stock en Espera:', stock.stock_en_espera)
+                                            print('Stock Vendido:', stock.stock_vendido)
+                                            print('Stock Devolución:', stock.stock_devolucion)
+                                            print('Bodega:', stock.bodega)
+                                            print('------------------')
+
+                            else:
+                                print('No existe esa Orden. Error con el orden ID: '+valor)
+                                return JsonResponse({'Mensaje':'No existe esa Orden. Error con el orden ID: '+valor})
+                            
+
+                    
                 self.perform_create(serializer)
-                print('Objeto creado')
+                print('\nObjeto creado\n')
 
                 #AGREGAR VALIDACIONES ACÁ O ACTUALIZACIONES,ETC
                 return JsonResponse({'Mensaje':'Ha sido creado...'})
@@ -39,7 +73,7 @@ def create_serializer_and_viewset(modelos):
             super().update(request, *args, **kwargs)
 
             #AGREGAR VALIDACIONES ACÁ O ACTUALIZACIONES,ETC
-            print('Objeto actualizado')
+            print('\nObjeto actualizado\n')
 
             return JsonResponse({'Mensaje': 'Actualización exitosa'})
 
@@ -51,7 +85,7 @@ def create_serializer_and_viewset(modelos):
             super().destroy(request, *args, **kwargs)
 
             #AGREGAR VALIDACIONES ACÁ O ACTUALIZACIONES,ETC
-            print('Objeto eliminado')
+            print('\nObjeto eliminado\n')
 
             return JsonResponse({'Mensaje': 'Eliminación exitosa'})
 
