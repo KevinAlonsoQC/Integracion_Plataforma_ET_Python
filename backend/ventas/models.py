@@ -397,7 +397,7 @@ class Orden_Despacho(models.Model):
 
     bodega_recepcion = models.ForeignKey(Bodega, verbose_name='Bodega_Que_Recibe', related_name='ordenes_despacho_recepcion', on_delete=models.CASCADE)
     bodega_emisor = models.ForeignKey(Bodega,verbose_name='Bodega_Que_Envia',related_name='ordenes_despacho_emisor',on_delete=models.CASCADE)
-    producto_envio=models.ForeignKey(Producto, on_delete=models.CASCADE) #ForeignKey
+    #producto_envio=models.ForeignKey(Producto, on_delete=models.CASCADE) #ForeignKey
     estado_despacho=models.ForeignKey(Tipo_Estado, on_delete=models.CASCADE)
 
 
