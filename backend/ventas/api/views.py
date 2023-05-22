@@ -27,7 +27,7 @@ def create_serializer_and_viewset(modelos):
 
                 if nombre_modelo == 'Detalle_Orden': #Solo ocurrirá cuando se inserta un dato al modelo "Detalle_Orden"
                     producto = request.data.get('producto')
-                    cantidad_comprada = request.data.get('cantidad')
+                    cantidad_comprada = int(request.data.get('cantidad'))
 
                     id_orden = Orden.objects.filter(id=request.data.get('numero_orden')).first()
                     if id_orden is None:
@@ -44,20 +44,67 @@ def create_serializer_and_viewset(modelos):
                         print('No existe la bodega asociada a la sucursal.')
                         return JsonResponse({'Mensaje': 'No existe la bodega asociada a la sucursal.'})
 
-                    inventario = Inventario.objects.filter(bodega=bodega, producto=producto)
+                    inv_respaldos = Inventario.objects.filter(producto=producto) #Cargamos los inventarios completamente
+                    inventario = Inventario.objects.filter(bodega=bodega, producto=producto) #Cargamos el inventario de la bodega relacionada
+
+                    # Pasará por acá solamente si el inventario existe y este tiene stock del producto en bodega
+                    cantidad_bandera = cantidad_comprada
                     if inventario.exists():
-                        print('Existe el inventario y el producto')
+                        stock_inv_original = 0
+                        print('\nExiste el inventario y el producto')
+                        #Obtenemos el stock del inventario
                         for stock in inventario:
-                            print('------------------')
-                            print('Nombre Bodega:', stock.bodega)
-                            print('Producto:', stock.producto)
-                            print('Stock Disponible:', stock.stock_disponible)
-                            print('Cantidad que lleva el cliente:', cantidad_comprada)
-                            print('------------------')
-                            
+                            stock_inv_original = int(stock.stock_disponible)
+
+                        #Si la cantidad comprada, es mayor que el stock disponible del inventario de la bodega.
+                        if cantidad_comprada > stock_inv_original:
+                            cantidad_bandera -= stock_inv_original
+                            for inv_r in inv_respaldos:
+                                if inv_r.stock_disponible >= cantidad_bandera:
+                                    print(f'\nLa bodega:{inv_r.bodega.id} tenía {inv_r.stock_disponible}. Ahora tiene: ')
+                                    inv_r.stock_disponible -= cantidad_bandera
+                                    print(inv_r.stock_disponible)
+                                    inventario.update(stock_disponible=0)
+                                    inv_r.save()
+
+                                    return JsonResponse({'Mensaje': 'Compra en camino (COD:01).'})
+                                else:
+                                    print(f'\nLa bodega:{inv_r.bodega.id} tenía {inv_r.stock_disponible}, ahora tendrá 0')
+                                    print(inv_r.stock_disponible, cantidad_bandera)
+                                    inv_r.stock_disponible = 0
+                                    inv_r.save()
+                                    cantidad_bandera -= inv_r.stock_disponible
+                                    print('\nCantidad luego:')
+                                    print(cantidad_bandera)
+
+                            return JsonResponse({'Mensaje': 'Las bodegas no tienen suficiente stock (COD:01).'}) 
+
+                        else: #El inventario si cumple con la cantidad solicitada.
+                            stock = stock_inv_original - cantidad_comprada
+                            inventario.update(stock_disponible=stock)
+                            return JsonResponse({'Mensaje': 'Compra en camino (COD:02).'}) 
+
+                    # Pasará por acá solamente si en el inventario no hay stock del producto.      
                     else:
-                        print('No existe inventario para el producto en la bodega.')
-                        return JsonResponse({'Mensaje': 'No existe inventario para el producto en la bodega.'}) 
+                        print('\nNo existe inventario para el producto en la bodega. Buscando en otras bodegas')
+                        for inv_r in inv_respaldos:
+                            if inv_r.stock_disponible >= cantidad_bandera:
+                                print(f'\nLa bodega:{inv_r.bodega.id} tenía {inv_r.stock_disponible}. Ahora tiene: ')
+                                inv_r.stock_disponible -= cantidad_bandera
+                                print(inv_r.stock_disponible)
+                                inventario.update(stock_disponible=0)
+                                inv_r.save()
+                                return JsonResponse({'Mensaje': 'Compra en camino (COD:03).'})
+                            else:
+                                print(f'\nLa bodega:{inv_r.bodega.id} tenía {inv_r.stock_disponible}, ahora tendrá 0')
+                                print(inv_r.stock_disponible, cantidad_bandera)
+                                inv_r.stock_disponible = 0
+                                inv_r.save()
+                                cantidad_bandera -= inv_r.stock_disponible
+                                print('\nCantidad luego:')
+                                print(cantidad_bandera)
+
+                        return JsonResponse({'Mensaje': 'Las bodegas no tienen suficiente stock (COD:02).'}) 
                     
                 self.perform_create(serializer)
                 print('\nObjeto creado\n')
