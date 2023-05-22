@@ -461,7 +461,7 @@
         "comuna": 1
     },
     {
-        "id": 8,
+        "id": 9,
         "nombre_bodega": "Bodega Central",
         "telefono": "2 6545 2145",
         "encargado": 8,
@@ -500,7 +500,7 @@
         "telefono": "2 5445 5458",
         "gerente": 7,
         "comuna": 1,
-        "bodega_sucursal": 8
+        "bodega_sucursal": 9
     }
   ],
   "proovedor": [
@@ -871,7 +871,7 @@
         "stock_vendido": 5000,
         "stock_devolucion": 10,
         "producto": 3,
-        "bodega": 8
+        "bodega": 9
     }
   ]
 }

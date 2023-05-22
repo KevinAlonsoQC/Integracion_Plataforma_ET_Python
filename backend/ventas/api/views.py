@@ -68,7 +68,7 @@ def create_serializer_and_viewset(modelos):
                 return JsonResponse({'Mensaje':'Datos incorrectos...'})
 
         def update(self, request, *args, **kwargs):
-            instancia = self.get_object()  # Obtener la instancia que está siendo actualizada
+            instancia = self.get_object() #Obtener la instancia que está siendo actualizada
             # Realizar acciones adicionales aquí antes de la actualización
 
             # Llamar al método 'update' del padre para realizar la actualización
@@ -81,7 +81,7 @@ def create_serializer_and_viewset(modelos):
             return JsonResponse({'Mensaje': 'Actualización exitosa'})
 
         def destroy(self, request, *args, **kwargs):
-            instancia = self.get_object()  # Obtener la instancia que se eliminará
+            instancia = self.get_object() #Obtener la instancia que se eliminará
             # Realizar acciones adicionales aquí antes de la eliminación
 
             # Llamar al método 'destroy' del padre para realizar la eliminación
