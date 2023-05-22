@@ -28,22 +28,22 @@ def create_serializer_and_viewset(modelos):
                 if nombre_modelo == 'Detalle_Orden': #Solo ocurrirá cuando se inserta un dato al modelo "Detalle_Orden"
                     producto = request.data.get('producto')
                     cantidad_comprada = request.data.get('cantidad')
-                    
+
                     id_orden = Orden.objects.filter(id=request.data.get('numero_orden')).first()
                     if id_orden is None:
                         print('No existe esa Orden. Error con el orden ID:', request.data.get('numero_orden'))
                         return JsonResponse({'Mensaje': 'No existe esa Orden. Error con el orden ID: ' + request.data.get('numero_orden')})
-                    
+
                     sucursal = Sucursal.objects.filter(id=id_orden.sucursal.id).first()
                     if sucursal is None:
                         print('No existe la sucursal asociada a la Orden.')
                         return JsonResponse({'Mensaje': 'No existe la sucursal asociada a la Orden.'})
-                    
+
                     bodega = Bodega.objects.filter(id=sucursal.bodega_sucursal.id).first()
                     if bodega is None:
                         print('No existe la bodega asociada a la sucursal.')
                         return JsonResponse({'Mensaje': 'No existe la bodega asociada a la sucursal.'})
-                    
+
                     inventario = Inventario.objects.filter(bodega=bodega, producto=producto)
                     if inventario.exists():
                         print('Existe el inventario y el producto')
@@ -56,10 +56,7 @@ def create_serializer_and_viewset(modelos):
                             print('------------------')
                     else:
                         print('No existe inventario para el producto en la bodega.')
-                        return JsonResponse({'Mensaje': 'No existe inventario para el producto en la bodega.'})
-
-                            
-
+                        return JsonResponse({'Mensaje': 'No existe inventario para el producto en la bodega.'}) 
                     
                 self.perform_create(serializer)
                 print('\nObjeto creado\n')
