@@ -54,6 +54,7 @@ def create_serializer_and_viewset(modelos):
                             print('Stock Disponible:', stock.stock_disponible)
                             print('Cantidad que lleva el cliente:', cantidad_comprada)
                             print('------------------')
+                            
                     else:
                         print('No existe inventario para el producto en la bodega.')
                         return JsonResponse({'Mensaje': 'No existe inventario para el producto en la bodega.'}) 
