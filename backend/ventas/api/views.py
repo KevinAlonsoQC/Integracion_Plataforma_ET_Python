@@ -19,20 +19,21 @@ def create_serializer_and_viewset(modelos):
         queryset = modelos.objects.all()
         serializer_class = Serializer
 
-        def retrieve(self, request, *args, **kwargs):
-            instancia = self.get_object()  # Obtener la instancia del objeto
-            # Realizar acciones adicionales aquí antes de obtener los datos
-            if nombre_modelo == 'Orden':
-                orden = Orden.objects.filter(id=request.data.get('id')).first()
-                detalle_orden = Detalle_Orden.objects.filter(numero_orden=orden)
-                response.data['detalle_orden'] = detalle_orden
-            # Llamar al método 'retrieve' del padre para obtener los datos
-            response = super().retrieve(request, *args, **kwargs)
-
-            #AGREGAR VALIDACIONES ACÁ O ACTUALIZACIONES, ETC
-            print('\nObjeto obtenido\n')
-
-            return response
+        #def retrieve(self, request, *args, **kwargs):
+        #    instancia = self.get_object()  # Obtener la instancia del objeto
+        #    # Realizar acciones adicionales aquí antes de obtener los datos
+        #    print('Modelo: ' + nombre_modelo)
+        #    if nombre_modelo == 'Orden':
+        #        orden = Orden.objects.filter(id=request.data.get('id')).first()
+        #        detalle_orden = Detalle_Orden.objects.filter(numero_orden=orden)
+        #        response.data['detalle_orden'] = detalle_orden
+        #    # Llamar al método 'retrieve' del padre para obtener los datos
+        #    response = super().retrieve(request, *args, **kwargs)
+        #
+        #    #AGREGAR VALIDACIONES ACÁ O ACTUALIZACIONES, ETC
+        #    print('\nObjeto obtenido\n')
+        #
+        #    return response
 
 
         def create(self, request, *args, **kwargs):
@@ -79,7 +80,7 @@ def create_serializer_and_viewset(modelos):
                                     print(inv_r.stock_disponible)
                                     inventario.update(stock_disponible=0)
                                     inv_r.save()
-
+                                    self.perform_create(serializer)
                                     return JsonResponse({'Mensaje': 'Compra en camino (COD:01).'})
                                 else:
                                     print(f'\nLa bodega:{inv_r.bodega.id} tenía {inv_r.stock_disponible}, ahora tendrá 0')
@@ -93,9 +94,10 @@ def create_serializer_and_viewset(modelos):
                             return JsonResponse({'Mensaje': 'Las bodegas no tienen suficiente stock (COD:01).'}) 
                             
                         #Pasará solo si la bodega tiene stock para la compra
-                        else:
+                        elif cantidad_bandera <= stock_inv_original:
                             stock = stock_inv_original - cantidad_bandera
                             inventario.update(stock_disponible=stock)
+                            self.perform_create(serializer)
                             return JsonResponse({'Mensaje': 'Compra en camino (COD:02).'}) 
 
                     #Esto pasará solo si no existe el producto dentro del "inventario" de la bodega.
@@ -107,6 +109,7 @@ def create_serializer_and_viewset(modelos):
                                 inv_r.stock_disponible -= cantidad_bandera
                                 print(inv_r.stock_disponible)
                                 inv_r.save()
+                                self.perform_create(serializer)
                                 return JsonResponse({'Mensaje': 'Compra en camino (COD:03).'})
                             else:
                                 print(f'\nLa bodega:{inv_r.bodega.id} tenía {inv_r.stock_disponible}, ahora tendrá 0')
@@ -119,9 +122,9 @@ def create_serializer_and_viewset(modelos):
 
                         return JsonResponse({'Mensaje': 'Las bodegas no tienen suficiente stock (COD:02).'})
 
-                self.perform_create(serializer)
+                
                 print('\nObjeto creado\n')
-
+                self.perform_create(serializer)
                 # AGREGAR VALIDACIONES ACÁ O ACTUALIZACIONES, ETC
                 return JsonResponse({'Mensaje':'Ha sido creado...'})
             else:

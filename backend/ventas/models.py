@@ -383,7 +383,7 @@ class Orden(models.Model):
     tipo_pago=models.ForeignKey(Tipo_Pago, on_delete=models.CASCADE)  #ForeignKey
 
     def __str__(self):
-        return str(self.id)+' | Comprador: '+self.comprador+' | Fecha '+str(self.fecha_orden)
+        return 'Nro Orden: '+str(self.id)+' | Cliente: '+self.comprador.nombre+' '+self.comprador.apellido+' | Fecha '+str(self.fecha_orden)
     
 class Detalle_Orden(models.Model):
     id = models.AutoField(primary_key=True)

@@ -4,11 +4,41 @@ from django.apps import apps
 from .models import *
 import json
 from django.shortcuts import render
-
+from django.core import serializers
 
 
 def home(request):
     return render(request, 'template.html', {})
+
+def orden_detallada(request, id):
+    mensaje = {}
+    orden = Orden.objects.filter(id=id).first()
+    detalle_orden = Detalle_Orden.objects.filter(numero_orden=orden)
+
+    serialized_orden = serializers.serialize('json', [orden])
+    serialized_detalle_orden = serializers.serialize('json', detalle_orden)
+
+    mensaje['orden'] = serialized_orden
+    mensaje['detalle_orden'] = serialized_detalle_orden
+
+    return JsonResponse({'Resultados': mensaje})
+    
+def ordenes(request):
+    mensaje = {}
+    ordenes = Orden.objects.all()
+    mensaje['ordenes'] = []
+    
+    for orden in ordenes:
+        detalle_orden = Detalle_Orden.objects.filter(numero_orden=orden)
+        serialized_orden = serializers.serialize('json', [orden])
+        serialized_detalle_orden = serializers.serialize('json', detalle_orden)
+        mensaje['ordenes'].append({
+            'orden': serialized_orden,
+            'detalle_orden': serialized_detalle_orden
+        })
+
+    
+    return JsonResponse({'Resultados': mensaje})
 
 #Pokemon.objects.filter(nombre=pokemon_data['name']).delete()
 def carga_masiva(request):
