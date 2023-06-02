@@ -3,9 +3,12 @@ from django.http import JsonResponse
 from django.apps import apps
 from .models import *
 import json
+from django.shortcuts import render
+
+
 
 def home(request):
-    return JsonResponse({'API': 'http://127.0.0.1:8000/api', 'ADMIN':'http://127.0.0.1:8000/admin','CARGA_MASIVA':'http://127.0.0.1:8000/carga_masiva/'})
+    return render(request, 'template.html', {})
 
 #Pokemon.objects.filter(nombre=pokemon_data['name']).delete()
 def carga_masiva(request):

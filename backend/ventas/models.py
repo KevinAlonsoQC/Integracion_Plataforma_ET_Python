@@ -11,6 +11,7 @@ class Sexo(models.Model):
 
     sexo=models.TextField(verbose_name='Sexo', null=True)
     desc=models.TextField(verbose_name='Descripcion', null=True)
+    activo=models.IntegerField(verbose_name='Activo', null=True, default=0)
 
     def __str__(self):
         return self.sexo
@@ -18,6 +19,8 @@ class Sexo(models.Model):
 class Continente(models.Model):
     id = models.AutoField(primary_key=True)
     continente=models.CharField(unique=True, max_length=255, verbose_name='Continente', null=False)
+    activo=models.IntegerField(verbose_name='Activo', null=True, default=0)
+
     def __str__(self):
         return self.continente
 
@@ -26,6 +29,7 @@ class Pais(models.Model):
 
     pais=models.CharField(unique=True,max_length=255, verbose_name='Pais', null=False)
     continente=models.ForeignKey(Continente, on_delete=models.CASCADE) #ForeignKey
+    activo=models.IntegerField(verbose_name='Activo', null=True, default=0)
 
     def __str__(self):
         return self.pais
@@ -35,6 +39,8 @@ class Ciudad(models.Model):
 
     ciudad=models.CharField(unique=True,max_length=255, verbose_name='Ciudad', null=False)
     pais=models.ForeignKey(Pais, on_delete=models.CASCADE) #ForeignKey
+    activo=models.IntegerField(verbose_name='Activo', null=True, default=0)
+
 
     def __str__(self):
         return self.ciudad
@@ -44,6 +50,7 @@ class Comuna(models.Model):
 
     comuna=models.CharField(unique=True,max_length=255, verbose_name='Comuna', null=False)
     ciudad=models.ForeignKey(Ciudad, on_delete=models.CASCADE) #ForeignKey
+    activo=models.IntegerField(verbose_name='Activo', null=True, default=0)
 
     def __str__(self):
         return self.comuna
@@ -53,25 +60,18 @@ class Tipo_Proovedor(models.Model): #6
 
     tipo_proovedor=models.CharField(max_length=255, verbose_name='Tipo_Proovedor', null=False)
     desc_tipo_proovedor=models.CharField(max_length=255, verbose_name='Descripcion', null=False)
+    activo=models.IntegerField(verbose_name='Activo', null=True, default=0)
 
     def __str__(self):
         return self.tipo_proovedor
-
-class Tipo_Producto(models.Model):
-    id = models.AutoField(primary_key=True)
-
-    tipo_producto=models.CharField(max_length=255, verbose_name='Tipo_Producto', null=False)
-    desc_tipo_producto=models.CharField(max_length=255, verbose_name='Descripcion', null=False)
-
-    def __str__(self):
-        return self.tipo_producto
 
 class Banco(models.Model):
     id = models.AutoField(primary_key=True)
 
     nombre_banco=models.CharField(unique=True,max_length=255, verbose_name='Nombre_Banco', null=False)
-    ciudad_banco=models.ForeignKey(Ciudad,on_delete=models.CASCADE, null=True)
-    pais_banco=models.ForeignKey(Pais,on_delete=models.CASCADE, null=True)
+    comuna_banco=models.ForeignKey(Comuna,on_delete=models.CASCADE, null=True)
+    activo=models.IntegerField(verbose_name='Activo', null=True, default=0)
+
 
     def __str__(self):
         return self.nombre_banco
@@ -142,6 +142,8 @@ class Empleado(models.Model):
     comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE) #ForeignKey
     tipo_cuenta=models.ForeignKey(Tipo_Cuenta, on_delete=models.CASCADE) #ForeignKey
 
+    activo=models.IntegerField(verbose_name='Activo', null=True, default=0)
+
     def __str__(self):
         return self.nombre+' '+self.apellido+' | Puesto: '+self.tipo_cuenta.nombre_tipo
 
@@ -160,6 +162,8 @@ class Clientes(models.Model):
     nacimiento=models.DateField(verbose_name="Fecha_Nacimiento", null=False)
     comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE) #ForeignKey
 
+    activo=models.IntegerField(verbose_name='Activo', null=True, default=0)
+
     def __str__(self):
         return self.nombre+' '+self.apellido
 
@@ -170,6 +174,9 @@ class Bodega(models.Model): #16
     telefono=models.CharField(max_length=255,verbose_name='Telefono', null=False)
     encargado=models.ForeignKey(Empleado, on_delete=models.CASCADE)
     comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE) #ForeignKey
+
+    activo=models.IntegerField(verbose_name='Activo', null=True, default=0)
+
 
     def __str__(self):
         return self.nombre_bodega
@@ -183,6 +190,9 @@ class Sucursal(models.Model):
     gerente=models.ForeignKey(Empleado, on_delete=models.CASCADE)
     comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE) #ForeignKey
     bodega_sucursal=models.ForeignKey(Bodega, on_delete=models.CASCADE) #ForeignKey
+
+    activo=models.IntegerField(verbose_name='Activo', null=True, default=0)
+
 
     def __str__(self):
         return self.nombre_sucursal
@@ -198,6 +208,8 @@ class Proovedor(models.Model):
 
     tipo_proovedor=models.ForeignKey(Tipo_Proovedor, on_delete=models.CASCADE, null=True) #ForeignKey
     comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE) #ForeignKey
+    activo=models.IntegerField(verbose_name='Activo', null=True, default=0)
+
 
     def __str__(self):
         return self.nombre_proovedor
@@ -220,6 +232,8 @@ class Promocion(models.Model):
     desc=models.TextField(verbose_name='Descripcion', null=False)
     fecha_inicio=models.DateField(verbose_name="Fecha_Inicio", null=False)
     fecha_fin=models.DateField(verbose_name="Fecha_Fin", null=False)
+    activo=models.IntegerField(verbose_name='Activo', null=True, default=0)
+
 
     def __str__(self):
         return self.nombre_promocion
@@ -232,6 +246,8 @@ class Cupon_Descuento(models.Model):
     desc=models.TextField(verbose_name='Descripcion', null=False)
     fecha_inicio=models.DateField(verbose_name="Fecha_Inicio", null=False)
     fecha_fin=models.DateField(verbose_name="Fecha_Fin", null=False)
+    activo=models.IntegerField(verbose_name='Activo', null=True, default=0)
+
 
     def __str__(self):
         return self.nombre_desct
@@ -249,8 +265,8 @@ class Categoria(models.Model):
     tipo_categoria=models.TextField(verbose_name='Tipo_Categoria', null=False)
     desc=models.TextField(verbose_name='Descripcion', null=False)
 
-    #Una serie de productos de dicha categoría pueden estar en promo
-    en_promo=models.ForeignKey(Promocion, on_delete=models.CASCADE, null=True) #ForeignKey
+    activo=models.IntegerField(verbose_name='Activo', null=True, default=0)
+
 
     def __str__(self):
         return self.tipo_categoria
@@ -278,6 +294,9 @@ class Producto(models.Model): #21
     talla_ropa=models.ForeignKey(Talla_Ropa, on_delete=models.CASCADE, null=True) #ForeignKey
     color=models.ForeignKey(Color, on_delete=models.CASCADE, null=True) #ForeignKey
 
+    en_promo=models.ForeignKey(Promocion, on_delete=models.CASCADE, null=True) #ForeignKey
+
+    activo=models.IntegerField(verbose_name='Activo', null=True, default=0)
     def __str__(self):
         return self.nombre_producto
     
@@ -337,14 +356,13 @@ class Direcciones_Clientes(models.Model): #28
     comuna=models.ForeignKey(Comuna, on_delete=models.CASCADE)  #ForeignKey
     tipo_hogar=models.ForeignKey(Tipo_Hogar, on_delete=models.CASCADE)  #ForeignKey
 
+
+
     def __str__(self):
         return "Dirección: "+self.direccion+" | Cliente: "+self.cliente.nombre+" "+self.cliente.apellido
 
-
-
 class Orden(models.Model):
     id = models.AutoField(primary_key=True)
-    numero_orden=models.CharField(max_length=100, verbose_name='Numero_Orden', null=False)
     #precio_total=models.CharField(max_length=250, verbose_name='Precio_Total', null=False)
     fecha_orden=models.DateField(auto_now_add=True, verbose_name="Fecha_Orden", null=False)
 
@@ -364,7 +382,7 @@ class Orden(models.Model):
     tipo_pago=models.ForeignKey(Tipo_Pago, on_delete=models.CASCADE)  #ForeignKey
 
     def __str__(self):
-        return self.numero_orden
+        return str(self.id)+' | Comprador: '+self.comprador+' | Fecha '+str(self.fecha_orden)
     
 class Detalle_Orden(models.Model):
     id = models.AutoField(primary_key=True)
@@ -402,7 +420,7 @@ class Orden_Despacho(models.Model):
 
 
     def __str__(self):
-        return "Nro Orden: "+self.id+" | ID Bodega Recepcion: "+self.bodega_recepcion.nombre_bodega+" | ID Bodega Emisor: "+self.bodega_emisor.nombre_bodega
+        return "Nro Orden: "+str(self.id)+" | ID Bodega Recepcion: "+self.bodega_recepcion.nombre_bodega+" | ID Bodega Emisor: "+self.bodega_emisor.nombre_bodega
 
 class Detalle_Despacho(models.Model):
     id = models.AutoField(primary_key=True)
@@ -420,7 +438,7 @@ class Procesar_Pagos(models.Model): #31
     fecha_proceso=models.DateField(auto_now_add=True, verbose_name="Fecha_Procesado_Pago", null=False)
 
     def __str__(self):
-        return self.cliente.nombre+' '+self.cliente.apellido+' | Orden: '+self.orden.numero_orden
+        return self.cliente.nombre+' '+self.cliente.apellido+' | Orden: '+str(self.orden.numero_orden)
 
 class Recepcion_Pagos(models.Model): #31
     id = models.AutoField(primary_key=True)

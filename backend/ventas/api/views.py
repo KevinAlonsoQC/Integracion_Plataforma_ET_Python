@@ -19,6 +19,22 @@ def create_serializer_and_viewset(modelos):
         queryset = modelos.objects.all()
         serializer_class = Serializer
 
+        def retrieve(self, request, *args, **kwargs):
+            instancia = self.get_object()  # Obtener la instancia del objeto
+            # Realizar acciones adicionales aquí antes de obtener los datos
+            if nombre_modelo == 'Orden':
+                orden = Orden.objects.filter(id=request.data.get('id')).first()
+                detalle_orden = Detalle_Orden.objects.filter(numero_orden=orden)
+                response.data['detalle_orden'] = detalle_orden
+            # Llamar al método 'retrieve' del padre para obtener los datos
+            response = super().retrieve(request, *args, **kwargs)
+
+            #AGREGAR VALIDACIONES ACÁ O ACTUALIZACIONES, ETC
+            print('\nObjeto obtenido\n')
+
+            return response
+
+
         def create(self, request, *args, **kwargs):
             serializer = self.get_serializer(data=request.data)
             if serializer.is_valid():
@@ -48,10 +64,12 @@ def create_serializer_and_viewset(modelos):
                     inv_respaldos = Inventario.objects.filter(producto=producto)
                     cantidad_bandera = cantidad_comprada
                     
+                    #Esto pasará si existe el "producto" en el inventario de la bodega.
                     if inventario.exists():
                         print('\nExiste el inventario y el producto')
                         stock_inv_original = inventario.first().stock_disponible
 
+                        #Pasará solo si la bodega no tiene stock suficiente.
                         if cantidad_bandera > stock_inv_original:
                             cantidad_bandera -= stock_inv_original
                             for inv_r in inv_respaldos:
@@ -73,12 +91,14 @@ def create_serializer_and_viewset(modelos):
                                     print(cantidad_bandera)
 
                             return JsonResponse({'Mensaje': 'Las bodegas no tienen suficiente stock (COD:01).'}) 
-
+                            
+                        #Pasará solo si la bodega tiene stock para la compra
                         else:
                             stock = stock_inv_original - cantidad_bandera
                             inventario.update(stock_disponible=stock)
                             return JsonResponse({'Mensaje': 'Compra en camino (COD:02).'}) 
 
+                    #Esto pasará solo si no existe el producto dentro del "inventario" de la bodega.
                     else:
                         print('\nNo existe inventario para el producto en la bodega. Buscando en otras bodegas')
                         for inv_r in inv_respaldos:

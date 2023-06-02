@@ -3,211 +3,213 @@
     {
         "id": 1,
         "sexo": "Hombre",
-        "desc": "Sexo masculino según el mundo"
+        "desc": "Sexo masculino según el mundo",
+        "activo": 1
     },
     {
         "id": 2,
         "sexo": "Mujer",
-        "desc": "Sexo femenino según el mundo"
+        "desc": "Sexo femenino según el mundo",
+        "activo": 1
     },
     {
         "id": 3,
         "sexo": "Otro",
-        "desc": "Para nuevas generaciones"
+        "desc": "Para nuevas generaciones",
+        "activo": 1
     }
   ],
   "continente": [
     {
         "id": 1,
-        "continente": "América del Sur"
+        "continente": "América del Sur",
+        "activo": 1
     },
     {
         "id": 2,
-        "continente": "América del Norte"
+        "continente": "América del Norte",
+        "activo": 1
     },
     {
         "id": 3,
-        "continente": "Africa"
+        "continente": "Africa",
+        "activo": 1
     },
     {
         "id": 4,
-        "continente": "Europa"
+        "continente": "Europa",
+        "activo": 1
     },
     {
         "id": 5,
-        "continente": "Oceanía"
+        "continente": "Oceanía",
+        "activo": 1
     }
   ],
   "pais": [
     {
         "id": 1,
         "pais": "Chile",
-        "continente": 1
+        "continente": 1,
+        "activo": 1
     },
     {
         "id": 2,
         "pais": "Alemania",
-        "continente": 4
+        "continente": 4,
+        "activo": 1
     },
     {
         "id": 3,
         "pais": "Canada",
-        "continente": 2
+        "continente": 2,
+        "activo": 1
     },
     {
         "id": 4,
         "pais": "Australia",
-        "continente": 5
+        "continente": 5,
+        "activo": 1
     },
     {
         "id": 5,
         "pais": "Marruecos",
-        "continente": 3
+        "continente": 3,
+        "activo": 1
     }
   ],
   "ciudad": [
     {
         "id": 1,
         "ciudad": "Santiago",
-        "pais": 1
+        "pais": 1,
+        "activo": 1
     },
     {
         "id": 2,
         "ciudad": "Iquique",
-        "pais": 1
+        "pais": 1,
+        "activo": 1
     },
     {
         "id": 3,
         "ciudad": "Viña del Mar",
-        "pais": 1
+        "pais": 1,
+        "activo": 1
     },
     {
         "id": 5,
         "ciudad": "Chillan",
-        "pais": 1
+        "pais": 1,
+        "activo": 1
     },
     {
         "id": 6,
         "ciudad": "Talca",
-        "pais": 1
+        "pais": 1,
+        "activo": 1
     } 
   ],
   "comuna": [
     {
         "id": 1,
         "comuna": "Las Condes",
-        "ciudad": 1
+        "ciudad": 1,
+        "activo": 1
     },
     {
         "id": 2,
         "comuna": "Alto Hospicio",
-        "ciudad": 2
+        "ciudad": 2,
+        "activo": 1
     },
     {
         "id": 3,
         "comuna": "Zapallar",
-        "ciudad": 3
+        "ciudad": 3,
+        "activo": 1
     },
     {
         "id": 4,
         "comuna": "Yungay",
-        "ciudad": 5
+        "ciudad": 5,
+        "activo": 1
     },
     {
         "id": 5,
         "comuna": "Maule",
-        "ciudad": 6
+        "ciudad": 6,
+        "activo": 1
     }
   ],
   "tipo_proovedor": [
     {
         "id": 1,
         "tipo_proovedor": "Fabricante",
-        "desc_tipo_proovedor": "Es quien fábrica los productos para su consumo."
+        "desc_tipo_proovedor": "Es quien fábrica los productos para su consumo.",
+        "activo": 1
     },
     {
         "id": 2,
         "tipo_proovedor": "Mayorista",
-        "desc_tipo_proovedor": "Es quien fábrica los productos para su consumo."
+        "desc_tipo_proovedor": "Es quien fábrica los productos para su consumo.",
+        "activo": 1
     },
     {
         "id": 3,
         "tipo_proovedor": "Minorista",
-        "desc_tipo_proovedor": "e relaciona directamente con los destinatario final del producto ya sea utilizando un establecimiento u otro mecanismo de venta."
+        "desc_tipo_proovedor": "e relaciona directamente con los destinatario final del producto ya sea utilizando un establecimiento u otro mecanismo de venta.",
+        "activo": 1
     },
     {
         "id": 4,
         "tipo_proovedor": "Distribuidor",
-        "desc_tipo_proovedor": "aquella empresa que lleva hasta los consumidores finales los productos o servicios de otros ya sea a través de una red de tiendas, o bien en sistemas a distancia como catálogos e Internet."
+        "desc_tipo_proovedor": "aquella empresa que lleva hasta los consumidores finales los productos o servicios de otros ya sea a través de una red de tiendas, o bien en sistemas a distancia como catálogos e Internet.",
+        "activo": 1
     },
     {
         "id": 5,
         "tipo_proovedor": "Importador",
-        "desc_tipo_proovedor": "es el que realiza las importaciones, lo que significa que compra productos  o servicios en otros países y los lleva a su país."
+        "desc_tipo_proovedor": "es el que realiza las importaciones, lo que significa que compra productos  o servicios en otros países y los lleva a su país.",
+        "activo": 1
     },
     {
         "id": 6,
         "tipo_proovedor": "Exportador",
-        "desc_tipo_proovedor": "Es el que se encarga de la venta de productos de su país en otro."
-    }
-  ],
-  "tipo_producto": [
-    {
-        "id": 1,
-        "tipo_producto": "jeans",
-        "desc_tipo_producto": "Pantalón confeccionado con tela vaquera o tejana."
-    },
-    {
-        "id": 2,
-        "tipo_producto": "Polera",
-        "desc_tipo_producto": "Camiseta deportiva de manga corta."
-    },
-    {
-        "id": 3,
-        "tipo_producto": "Ropa interior",
-        "desc_tipo_producto": "Es diseñada para proteger la ropa de uso externo."
-    },
-    {
-        "id": 5,
-        "tipo_producto": "Short",
-        "desc_tipo_producto": "Es una prenda de vestir que cubre las piernas parcialmente, a partir de la cintura."
-    },
-    {
-        "id": 6,
-        "tipo_producto": "Chaqueta",
-        "desc_tipo_producto": "Prenda de vestir que cubre el cuerpo hasta más abajo de la cadera, con mangas la cual suele llevarse sobre otras prendas como prenda de abrigo."
+        "desc_tipo_proovedor": "Es el que se encarga de la venta de productos de su país en otro.",
+        "activo": 1
     }
   ],
   "banco": [
     {
         "id": 1,
         "nombre_banco": "Banco estado",
-        "ciudad_banco": 1,
-        "pais_banco": 1
+        "comuna_banco": 1,
+        "activo": 1
     },
     {
         "id": 2,
         "nombre_banco": "Banco de Chile",
-        "ciudad_banco": 3,
-        "pais_banco": 1
+        "comuna_banco": 2,
+        "activo": 1
     },
     {
         "id": 3,
         "nombre_banco": "Banco bci",
-        "ciudad_banco": 3,
-        "pais_banco": 1
+        "comuna_banco": 3,
+        "activo": 1
     },
     {
         "id": 4,
         "nombre_banco": "Banco Scotiabank",
-        "ciudad_banco": 6,
-        "pais_banco": 1
+        "comuna_banco": 4,
+        "activo": 1
     },
     {
         "id": 5,
         "nombre_banco": "Banco Itau",
-        "ciudad_banco": 5,
-        "pais_banco": 1
+        "comuna_banco": 5,
+        "activo": 1
     }
   ],
   "tipo_tarjeta": [
@@ -307,19 +309,22 @@
         "id": 4,
         "nombre_tipo": "Vendedor",
         "desc": "Vendedor de sucursal",
-        "nivel_staff": 2
+        "nivel_staff": 2,
+        "activo": 1
     },
     {
         "id": 5,
         "nombre_tipo": "Bodeguero",
         "desc": "Bodeguero de sucursal",
-        "nivel_staff": 1
+        "nivel_staff": 1,
+        "activo": 1
     },
     {
         "id": 6,
         "nombre_tipo": "Gerente",
         "desc": "Gerente de Sucursal",
-        "nivel_staff": 3
+        "nivel_staff": 3,
+        "activo": 1
     }
   ],
   "empleado": [
@@ -334,7 +339,8 @@
         "nacimiento": "1985-03-03",
         "sexo": 1,
         "comuna": 1,
-        "tipo_cuenta": 6
+        "tipo_cuenta": 6,
+        "activo": 1
     },
     {
         "id": 8,
@@ -347,7 +353,8 @@
         "nacimiento": "1985-03-03",
         "sexo": 1,
         "comuna": 1,
-        "tipo_cuenta": 5
+        "tipo_cuenta": 5,
+        "activo": 1
     },
     {
         "id": 9,
@@ -360,7 +367,8 @@
         "nacimiento": "1968-03-03",
         "sexo": 2,
         "comuna": 1,
-        "tipo_cuenta": 4
+        "tipo_cuenta": 4,
+        "activo": 1
     },
     {
         "id": 10,
@@ -373,7 +381,8 @@
         "nacimiento": "1968-03-03",
         "sexo": 2,
         "comuna": 1,
-        "tipo_cuenta": 4
+        "tipo_cuenta": 4,
+        "activo": 1
     }
   ],
   "clientes": [
@@ -387,7 +396,8 @@
         "celular": "12345678",
         "nacimiento": "1988-12-31",
         "sexo": 1,
-        "comuna": 5
+        "comuna": 5,
+        "activo": 1
     },
     {
         "id": 2,
@@ -399,7 +409,8 @@
         "celular": "98765432",
         "nacimiento": "2002-10-16",
         "sexo": 2,
-        "comuna": 2
+        "comuna": 2,
+        "activo": 1
     },
     {
         "id": 3,
@@ -411,7 +422,8 @@
         "celular": "966554433",
         "nacimiento": "2008-07-20",
         "sexo": 1,
-        "comuna": 3
+        "comuna": 3,
+        "activo": 1
     },
     {
         "id": 4,
@@ -423,7 +435,8 @@
         "celular": "78451203",
         "nacimiento": "2008-09-01",
         "sexo": 1,
-        "comuna": 4
+        "comuna": 4,
+        "activo": 1
     },
     {
         "id": 5,
@@ -435,7 +448,8 @@
         "celular": "99536278",
         "nacimiento": "1999-01-01",
         "sexo": 2,
-        "comuna": 5
+        "comuna": 5,
+        "activo": 1
     }
   ],
   "bodega": [
@@ -444,28 +458,32 @@
         "nombre_bodega": "Bodega Alto Las Condes",
         "telefono": "9 6468 3596",
         "encargado": 9,
-        "comuna": 1
+        "comuna": 1,
+        "activo": 1
     },
     {
         "id": 7,
         "nombre_bodega": "Bodega Alto Las Condes 2",
         "telefono": "9 6468 3597",
         "encargado": 10,
-        "comuna": 1
+        "comuna": 1,
+        "activo": 1
     },
     {
         "id": 8,
         "nombre_bodega": "Bodega Alto Las Condes 3",
         "telefono": "9 6468 3517",
         "encargado": 10,
-        "comuna": 1
+        "comuna": 1,
+        "activo": 1
     },
     {
         "id": 9,
         "nombre_bodega": "Bodega Central",
         "telefono": "2 6545 2145",
         "encargado": 8,
-        "comuna": 1
+        "comuna": 1,
+        "activo": 1
     }
   ],
   "sucursal": [
@@ -475,7 +493,8 @@
         "telefono": "9 6468 3596",
         "gerente": 7,
         "comuna": 1,
-        "bodega_sucursal": 6
+        "bodega_sucursal": 6,
+        "activo": 1
 
     },
     {
@@ -484,7 +503,8 @@
         "telefono": "9 6468 3595",
         "gerente": 7,
         "comuna": 2,
-        "bodega_sucursal": 7
+        "bodega_sucursal": 7,
+        "activo": 1
     },
     {
         "id": 13,
@@ -492,7 +512,8 @@
         "telefono": "9 6468 1254",
         "gerente": 7,
         "comuna": 1,
-        "bodega_sucursal": 8
+        "bodega_sucursal": 8,
+        "activo": 1
     },
     {
         "id": 14,
@@ -500,7 +521,8 @@
         "telefono": "2 5445 5458",
         "gerente": 7,
         "comuna": 1,
-        "bodega_sucursal": 9
+        "bodega_sucursal": 9,
+        "activo": 1
     }
   ],
   "proovedor": [
@@ -511,7 +533,8 @@
         "email_proovedor": "industrias@sneakers.com",
         "celular_proovedor": "98989695",
         "tipo_proovedor": 1,
-        "comuna": 5
+        "comuna": 5,
+        "activo": 1
     },
     {
         "id": 2,
@@ -520,7 +543,8 @@
         "email_proovedor": "cloth@ameciran.com",
         "celular_proovedor": "65653424",
         "tipo_proovedor": 2,
-        "comuna": 4
+        "comuna": 4,
+        "activo": 1
     }
   ],
   "promocion": [
@@ -529,28 +553,32 @@
         "nombre_promocion": "Remate",
         "desc": "Remate de ropa interior femenina",
         "fecha_inicio": "2023-02-16",
-        "fecha_fin": "2023-05-04"
+        "fecha_fin": "2023-05-04",
+        "activo": 1
     },
     {
         "id": 3,
         "nombre_promocion": "Liquidacion",
         "desc": "liquidacion todo hombre",
         "fecha_inicio": "2023-12-01",
-        "fecha_fin": "2023-05-20"
+        "fecha_fin": "2023-05-20",
+        "activo": 1
     },
     {
         "id": 4,
         "nombre_promocion": "gibcard",
         "desc": "gibcard por comprar superiores a 50000",
         "fecha_inicio": "2021-07-01",
-        "fecha_fin": "2021-08-13"
+        "fecha_fin": "2021-08-13",
+        "activo": 1
     },
     {
         "id": 5,
         "nombre_promocion": "descuento",
         "desc": "50% de descuento en poleras mujer",
         "fecha_inicio": "2021-12-25",
-        "fecha_fin": "2022-03-03"
+        "fecha_fin": "2022-03-03",
+        "activo": 1
     }
   ],
   "cupon_descuento": [
@@ -559,35 +587,40 @@
         "nombre_desct": "super lunes",
         "desc": "lunes de 10% de descuento en ropa interior",
         "fecha_inicio": "2023-03-27",
-        "fecha_fin": "2023-05-29"
+        "fecha_fin": "2023-05-29",
+        "activo": 1
     },
     {
         "id": 2,
         "nombre_desct": "2x1",
         "desc": "todas las prendas 2x1 se hombre",
         "fecha_inicio": "2023-03-10",
-        "fecha_fin": "2023-06-09"
+        "fecha_fin": "2023-06-09",
+        "activo": 1
     },
     {
         "id": 3,
         "nombre_desct": "cupon de descuento",
         "desc": "cupones de descuento para todo tipo de ropa",
         "fecha_inicio": "2023-03-13",
-        "fecha_fin": "2022-03-09"
+        "fecha_fin": "2022-03-09",
+        "activo": 1
     },
     {
         "id": 4,
         "nombre_desct": "martes locos",
         "desc": "todo polerones con 25% de descuento",
         "fecha_inicio": "2020-02-05",
-        "fecha_fin": "2020-03-11"
+        "fecha_fin": "2020-03-11",
+        "activo": 1
     },
     {
         "id": 5,
         "nombre_desct": "viernes de remate",
         "desc": "poleras mujer con 80% de descuento",
         "fecha_inicio": "2014-01-01",
-        "fecha_fin": "2014-01-31"
+        "fecha_fin": "2014-01-31",
+        "activo": 1
     }
   ],
   "cliente_cupon_descuento": [
@@ -622,31 +655,36 @@
         "id": 7,
         "tipo_categoria": "poleron",
         "desc": "poleron con capucha",
-        "en_promo": 2
+        "en_promo": 2,
+        "activo": 1
     },
     {
         "id": 8,
         "tipo_categoria": "polera",
         "desc": "polera de vestir",
-        "en_promo": 3
+        "en_promo": 3,
+        "activo": 1
     },
     {
         "id": 9,
         "tipo_categoria": "ropa interior",
         "desc": "ropa interior para proteger ropa exterior",
-        "en_promo": 5
+        "en_promo": 5,
+        "activo": 1
     },
     {
         "id": 11,
         "tipo_categoria": "pantalon",
         "desc": "pantalon de vestir formal",
-        "en_promo": 4
+        "en_promo": 4,
+        "activo": 1
     },
     {
         "id": 12,
         "tipo_categoria": "zapatos",
         "desc": "zapatillas de todos los modelos",
-        "en_promo": 3
+        "en_promo": 3,
+        "activo": 1
     }
   ],
   "edad_ropa": [
@@ -681,7 +719,8 @@
         "sexo": 3,
         "edad_de_ropa": 2,
         "talla_ropa": 3,
-        "color": 5
+        "color": 5,
+        "activo": 1
     },
     {
         "id": 2,
@@ -692,7 +731,8 @@
         "sexo": 2,
         "edad_de_ropa": 4,
         "talla_ropa": 4,
-        "color": 7
+        "color": 7,
+        "activo": 1
     },
     {
         "id": 3,
@@ -703,7 +743,8 @@
         "sexo": 1,
         "edad_de_ropa": 5,
         "talla_ropa": 5,
-        "color": 6
+        "color": 6,
+        "activo": 1
     },
     {
         "id": 4,
@@ -714,7 +755,8 @@
         "sexo": 1,
         "edad_de_ropa": 2,
         "talla_ropa": 2,
-        "color": 8
+        "color": 8,
+        "activo": 1
     },
     {
         "id": 5,
@@ -725,7 +767,8 @@
         "sexo": 2,
         "edad_de_ropa": 1,
         "talla_ropa": 3,
-        "color": 9
+        "color": 9,
+        "activo": 1
     }
   ],
   "tipo_estado": [
