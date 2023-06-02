@@ -655,35 +655,30 @@
         "id": 7,
         "tipo_categoria": "poleron",
         "desc": "poleron con capucha",
-        "en_promo": 2,
         "activo": 1
     },
     {
         "id": 8,
         "tipo_categoria": "polera",
         "desc": "polera de vestir",
-        "en_promo": 3,
         "activo": 1
     },
     {
         "id": 9,
         "tipo_categoria": "ropa interior",
         "desc": "ropa interior para proteger ropa exterior",
-        "en_promo": 5,
         "activo": 1
     },
     {
         "id": 11,
         "tipo_categoria": "pantalon",
         "desc": "pantalon de vestir formal",
-        "en_promo": 4,
         "activo": 1
     },
     {
         "id": 12,
         "tipo_categoria": "zapatos",
         "desc": "zapatillas de todos los modelos",
-        "en_promo": 3,
         "activo": 1
     }
   ],
@@ -720,6 +715,7 @@
         "edad_de_ropa": 2,
         "talla_ropa": 3,
         "color": 5,
+        "en_promo": 2,
         "activo": 1
     },
     {
@@ -732,6 +728,7 @@
         "edad_de_ropa": 4,
         "talla_ropa": 4,
         "color": 7,
+        "en_promo": 2,
         "activo": 1
     },
     {
@@ -744,6 +741,7 @@
         "edad_de_ropa": 5,
         "talla_ropa": 5,
         "color": 6,
+        "en_promo": 2,
         "activo": 1
     },
     {
@@ -756,6 +754,7 @@
         "edad_de_ropa": 2,
         "talla_ropa": 2,
         "color": 8,
+        "en_promo": 2,
         "activo": 1
     },
     {
@@ -768,6 +767,7 @@
         "edad_de_ropa": 1,
         "talla_ropa": 3,
         "color": 9,
+        "en_promo": 2,
         "activo": 1
     }
   ],
