@@ -121,7 +121,8 @@ class Tipo_Cuenta(models.Model):
     nombre_tipo=models.CharField(unique=True,max_length=255, verbose_name='Tipo_De_Cuenta', null=False)
     desc=models.CharField(unique=True,max_length=255, verbose_name='Descripcion', null=False)
     nivel_staff=models.IntegerField(verbose_name='Nivel Staff', null=True, default=0) #ForeignKey 
-
+    activo=models.IntegerField(verbose_name='Activo', null=True, default=0)
+    
     def __str__(self):
         return self.nombre_tipo
 
