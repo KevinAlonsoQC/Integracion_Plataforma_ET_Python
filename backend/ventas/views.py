@@ -10,6 +10,27 @@ from django.core import serializers
 def home(request):
     return render(request, 'template.html', {})
 
+#Mostrará todos los productos con un stock disponible mayor a 0
+def productos(request):
+    mensaje = {}
+    producto = Producto.objects.all()
+    
+    for k in producto:
+        mensaje[k.id] = {}  # Crear la clave para el producto actual
+        mensaje[k.id]['nombre_producto'] = k.nombre_producto
+        
+        stock_total = 0
+        detalle_producto = Inventario.objects.filter(producto=k, stock_disponible__gt=1)
+        
+        for v in detalle_producto:
+            print(f'El inventario de la bodega {v.bodega.nombre_bodega} tiene {v.stock_disponible} de stock para ser comprado')
+            stock_total += v.stock_disponible
+        
+        mensaje[k.id]['stock_total'] = stock_total
+    
+    mensaje = {k: v for k, v in mensaje.items() if v['stock_total'] != 0}
+    return JsonResponse({'Resultados': mensaje})
+
 def orden_detallada(request, id):
     mensaje = {}
     orden = Orden.objects.filter(id=id).first()
