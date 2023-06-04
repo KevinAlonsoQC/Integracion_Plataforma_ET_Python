@@ -45,6 +45,7 @@ def create_serializer_and_viewset(modelos):
                 if nombre_modelo == 'Detalle_Orden':
                     producto = request.data.get('producto')
                     cantidad_comprada = int(request.data.get('cantidad'))
+                    presencial_online = request.data.get('tipo_pedido')
 
                     orden = Orden.objects.filter(id=request.data.get('numero_orden')).first()
                     if not orden:

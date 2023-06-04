@@ -456,3 +456,10 @@ class Rechazo_Pagos(models.Model): #31
     cliente=models.ForeignKey(Clientes, on_delete=models.CASCADE, null=False) #ForeignKey
     orden=models.ForeignKey(Orden, on_delete=models.CASCADE, null=False) #ForeignKey
     fecha_rechazo=models.DateField(auto_now_add=True, verbose_name="Fecha_Rechazo_Pago", null=False)
+
+class Envio_Orden(models.Model):
+    id = models.AutoField(primary_key=True)
+
+    cliente = models.ForeignKey(Clientes, on_delete=models.CASCADE, null=False) #ForeignKey
+    orden = models.ForeignKey(Orden, on_delete=models.CASCADE, null=False) #ForeignKey
+    direccion = models.ForeignKey(Direcciones_Clientes, on_delete=models.CASCADE, null=False) #ForeignKey
