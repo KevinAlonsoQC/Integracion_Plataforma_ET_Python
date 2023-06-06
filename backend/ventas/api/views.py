@@ -3,6 +3,7 @@ from django.db import models
 from rest_framework import serializers, viewsets, routers
 from django.http import JsonResponse
 from ..models import *
+from ..views import act_productos
 
 #ACÁ SOLO MODIFICAR LOS CREATE, DESTROY Y UPDATE DONDE DICE #AGREGAR VALIDACIONES ACÁ O ACTUALIZACIONES,ETC
 #ACÁ SOLO MODIFICAR LOS CREATE, DESTROY Y UPDATE DONDE DICE #AGREGAR VALIDACIONES ACÁ O ACTUALIZACIONES,ETC
@@ -189,7 +190,10 @@ def create_serializer_and_viewset(modelos):
         def update(self, request, *args, **kwargs):
             instancia = self.get_object() #Obtener la instancia que está siendo actualizada
             # Realizar acciones adicionales aquí antes de la actualización
-
+            if nombre_modelo == 'Inventario':
+                producto = request.data.get('producto')
+                cantidad_total = request.data.get('stock_disponible')
+                act_productos(producto, cantidad_total)
             # Llamar al método 'update' del padre para realizar la actualización
             # Esto actualizará los campos en la instancia con los datos proporcionados en la solicitud
             super().update(request, *args, **kwargs)

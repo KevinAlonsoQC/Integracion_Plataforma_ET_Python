@@ -7,29 +7,31 @@ from django.shortcuts import render
 from django.core import serializers
 
 
+productos_catalogo = {}
+producto = Producto.objects.all()
+for k in producto:
+    productos_catalogo[k.id] = {}  # Crear la clave para el producto actual
+    productos_catalogo[k.id]['nombre_producto'] = k.nombre_producto
+    
+    stock_total = 0
+    detalle_producto = Inventario.objects.filter(producto=k, stock_disponible__gt=1)
+    for v in detalle_producto:
+        print(f'El inventario de la bodega {v.bodega.nombre_bodega} tiene {v.stock_disponible} de stock para ser comprado')
+        stock_total += v.stock_disponible
+    
+    productos_catalogo[k.id]['stock_total'] = stock_total
+
+productos_catalogo = {k: v for k, v in productos_catalogo.items() if v['stock_total'] != 0}
+
 def home(request):
     return render(request, 'template.html', {})
 
+def act_productos(producto, cantidad):
+    productos_catalogo[producto]['stock_total'] = cantidad
+
 #Mostrará todos los productos con un stock disponible mayor a 0
 def productos(request):
-    mensaje = {}
-    producto = Producto.objects.all()
-    
-    for k in producto:
-        mensaje[k.id] = {}  # Crear la clave para el producto actual
-        mensaje[k.id]['nombre_producto'] = k.nombre_producto
-        
-        stock_total = 0
-        detalle_producto = Inventario.objects.filter(producto=k, stock_disponible__gt=1)
-        
-        for v in detalle_producto:
-            print(f'El inventario de la bodega {v.bodega.nombre_bodega} tiene {v.stock_disponible} de stock para ser comprado')
-            stock_total += v.stock_disponible
-        
-        mensaje[k.id]['stock_total'] = stock_total
-    
-    mensaje = {k: v for k, v in mensaje.items() if v['stock_total'] != 0}
-    return JsonResponse({'Resultados': mensaje})
+    return JsonResponse({'Resultados': productos_catalogo})
 
 def orden_detallada(request, id):
     mensaje = {}
