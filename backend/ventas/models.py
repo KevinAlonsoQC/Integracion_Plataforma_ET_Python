@@ -135,9 +135,7 @@ class Empleado(models.Model):
     apellido=models.CharField(max_length=40, verbose_name='Apellido', null=False)
     email=models.EmailField(unique=True, max_length=100, verbose_name='Email', null=False)
     password=models.CharField(max_length=100, verbose_name='Contraseña', null=False)
-
     sueldo=models.IntegerField(verbose_name='Sueldo', null=False, default=0)
-
     sexo=models.ForeignKey(Sexo, on_delete=models.CASCADE)
     celular=models.CharField(max_length=9, verbose_name='Celular', null=False) 
     nacimiento=models.DateField(verbose_name="Fecha_Nacimiento", null=False)
@@ -282,26 +280,6 @@ class Edad_Ropa(models.Model):
 
     def __str__(self):
         return self.rango_edad
-
-class Producto(models.Model): #21
-    id = models.AutoField(primary_key=True)
-
-    nombre_producto=models.CharField(max_length=100, verbose_name='Nombre_Producto', null=False)
-    categoria_producto=models.ForeignKey(Categoria, on_delete=models.CASCADE) #ForeignKey
-    sexo=models.ForeignKey(Sexo, on_delete=models.CASCADE, null=True) #ForeignKey
-    edad_de_ropa=models.ForeignKey(Edad_Ropa, on_delete=models.CASCADE, null=True) #ForeignKey
-
-    descripcion=models.TextField(verbose_name='Descripcion', null=True)
-    precio=models.IntegerField(verbose_name='Precio', null=False)
-
-    talla_ropa=models.ForeignKey(Talla_Ropa, on_delete=models.CASCADE, null=True) #ForeignKey
-    color=models.ForeignKey(Color, on_delete=models.CASCADE, null=True) #ForeignKey
-
-    en_promo=models.ForeignKey(Promocion, on_delete=models.CASCADE, null=True) #ForeignKey
-
-    activo=models.IntegerField(verbose_name='Activo', null=True, default=0)
-    def __str__(self):
-        return self.nombre_producto
     
 class Tipo_Estado(models.Model):
     id = models.AutoField(primary_key=True)
@@ -363,6 +341,27 @@ class Direcciones_Clientes(models.Model): #28
 
     def __str__(self):
         return "Dirección: "+self.direccion+" | Cliente: "+self.cliente.nombre+" "+self.cliente.apellido
+
+
+class Producto(models.Model): #21
+    id = models.AutoField(primary_key=True)
+
+    nombre_producto=models.CharField(max_length=100, verbose_name='Nombre_Producto', null=False)
+    categoria_producto=models.ForeignKey(Categoria, on_delete=models.CASCADE) #ForeignKey
+    sexo=models.ForeignKey(Sexo, on_delete=models.CASCADE, null=True) #ForeignKey
+    edad_de_ropa=models.ForeignKey(Edad_Ropa, on_delete=models.CASCADE, null=True) #ForeignKey
+
+    descripcion=models.TextField(verbose_name='Descripcion', null=True)
+    precio=models.IntegerField(verbose_name='Precio', null=False)
+
+    talla_ropa=models.ForeignKey(Talla_Ropa, on_delete=models.CASCADE, null=True) #ForeignKey
+    color=models.ForeignKey(Color, on_delete=models.CASCADE, null=True) #ForeignKey
+
+    en_promo=models.ForeignKey(Promocion, on_delete=models.CASCADE, null=True) #ForeignKey
+
+    activo=models.IntegerField(verbose_name='Activo', null=True, default=0)
+    def __str__(self):
+        return self.nombre_producto
 
 class Orden(models.Model):
     id = models.AutoField(primary_key=True)

@@ -22,6 +22,7 @@ def create_serializer_and_viewset(modelos):
             class Meta:
                 model = modelos
                 fields = '__all__'
+                
 
     class ViewSet(viewsets.ModelViewSet):
         queryset = modelos.objects.all()

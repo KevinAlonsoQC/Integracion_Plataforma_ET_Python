@@ -6,7 +6,7 @@ import json
 from django.shortcuts import render
 from django.core import serializers
 
-
+#Esto causa error cuando se hacen migraciones, a excepcion de eso, funciona correctamente.
 productos_catalogo = {}
 producto = Producto.objects.all()
 for k in producto:
