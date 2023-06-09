@@ -11,10 +11,17 @@ from ..views import act_productos
 #ACÁ SOLO MODIFICAR LOS CREATE, DESTROY Y UPDATE DONDE DICE #AGREGAR VALIDACIONES ACÁ O ACTUALIZACIONES,ETC
 def create_serializer_and_viewset(modelos):
     nombre_modelo = modelos.__name__  # Obtener el nombre del modelo
-    class Serializer(serializers.ModelSerializer):
-        class Meta:
-            model = modelos
-            fields = '__all__'
+    
+    if nombre_modelo == 'Empleado':
+        class Serializer(serializers.ModelSerializer):
+            class Meta:
+                model = modelos
+                fields = ('id', 'nombre_unico', 'nombre', 'nombre', 'apellido', 'email', 'sexo', 'celular', 'nacimiento', 'comuna', 'tipo_cuenta')       
+    else:
+        class Serializer(serializers.ModelSerializer):
+            class Meta:
+                model = modelos
+                fields = '__all__'
 
     class ViewSet(viewsets.ModelViewSet):
         queryset = modelos.objects.all()

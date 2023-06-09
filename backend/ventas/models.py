@@ -136,6 +136,8 @@ class Empleado(models.Model):
     email=models.EmailField(unique=True, max_length=100, verbose_name='Email', null=False)
     password=models.CharField(max_length=100, verbose_name='Contraseña', null=False)
 
+    sueldo=models.IntegerField(verbose_name='Sueldo', null=False, default=0)
+
     sexo=models.ForeignKey(Sexo, on_delete=models.CASCADE)
     celular=models.CharField(max_length=9, verbose_name='Celular', null=False) 
     nacimiento=models.DateField(verbose_name="Fecha_Nacimiento", null=False)
