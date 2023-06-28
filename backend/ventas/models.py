@@ -223,7 +223,7 @@ class Ventas_Mes(models.Model):
     perdidas_totales=models.IntegerField(verbose_name='Perdidas_Mes', null=True)
     productos_vendidos=models.IntegerField(verbose_name='Productos_Vendidos_Mes', null=True)
     productos_devueltos=models.IntegerField(verbose_name='Productos_Devueltos_Mes', null=True)
-    mes=models.DateField(auto_now_add=True, verbose_name="Datos_Mes", null=False)
+    fecha=models.DateField(auto_now_add=True, verbose_name="Datos_Mes", null=False)
 
     
 class Promocion(models.Model):

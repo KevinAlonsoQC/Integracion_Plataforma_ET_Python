@@ -16,7 +16,13 @@ def create_serializer_and_viewset(modelos):
         class Serializer(serializers.ModelSerializer):
             class Meta:
                 model = modelos
-                fields = ('id', 'nombre_unico', 'nombre', 'nombre', 'apellido', 'email', 'sexo', 'celular', 'nacimiento', 'comuna', 'tipo_cuenta')       
+                fields = ('id', 'nombre', 'apellido', 'sexo', 'nacimiento', 'comuna', 'tipo_cuenta')   
+
+    elif nombre_modelo == 'Detalle_Orden':
+        class Serializer(serializers.ModelSerializer):
+            class Meta:
+                model = modelos
+                fields = ('id', 'numero_orden', 'producto', 'cantidad', 'fecha_orden')  
     else:
         class Serializer(serializers.ModelSerializer):
             class Meta:
@@ -28,23 +34,7 @@ def create_serializer_and_viewset(modelos):
         queryset = modelos.objects.all()
         serializer_class = Serializer
 
-        #def retrieve(self, request, *args, **kwargs):
-        #    instancia = self.get_object()  # Obtener la instancia del objeto
-        #    # Realizar acciones adicionales aquí antes de obtener los datos
-        #    print('Modelo: ' + nombre_modelo)
-        #    if nombre_modelo == 'Orden':
-        #        orden = Orden.objects.filter(id=request.data.get('id')).first()
-        #        detalle_orden = Detalle_Orden.objects.filter(numero_orden=orden)
-        #        response.data['detalle_orden'] = detalle_orden
-        #    # Llamar al método 'retrieve' del padre para obtener los datos
-        #    response = super().retrieve(request, *args, **kwargs)
-        #
-        #    #AGREGAR VALIDACIONES ACÁ O ACTUALIZACIONES, ETC
-        #    print('\nObjeto obtenido\n')
-        #
-        #    return response
-
-
+        #Esto capta los POST
         def create(self, request, *args, **kwargs):
             serializer = self.get_serializer(data=request.data)
             if serializer.is_valid():
@@ -55,6 +45,14 @@ def create_serializer_and_viewset(modelos):
                     producto = request.data.get('producto')
                     cantidad_comprada = int(request.data.get('cantidad'))
                     retiro_despacho = request.data.get('tipo_envio')
+                    precio_unitario = 0
+                    precio_total = 0
+                    
+                    #ESTO DE ABAJO CAPTARÁ EL OBJETO QUE SE ESTÁ CREANDO Y LES AÑADIRÁ LOS CAMPOS FALTANTES
+                    #LOS CAMPOS FALTANTES DEBEN ESTAR DECLARADOS EN EL MODELO EN models.py
+
+                    #serializer.validated_data['precio_unitario'] = precio_unitario
+                    #serializer.validated_data['precio_total'] = precio_total
 
                     orden = Orden.objects.filter(id=request.data.get('numero_orden')).first()
                     if not orden:
@@ -70,8 +68,12 @@ def create_serializer_and_viewset(modelos):
                     if not bodega:
                         print('No existe la bodega asociada a la sucursal.')
                         return JsonResponse({'Mensaje': 'No existe la bodega asociada a la sucursal.'})
+                    
 
+                    #Acá se obtienen las bodegas de respaldo, es decir, que si el producto no tiene stock en su bodega
+                    #Recurrirá a buscar en todas las bodegas existentes para abastecer
                     inv_respaldos = Inventario.objects.filter(producto=producto)
+
                     estados = Tipo_Estado.objects.filter(estado='pendiente')
                     cantidad_bandera = cantidad_comprada
                     cantidad_camino = 0
@@ -84,6 +86,76 @@ def create_serializer_and_viewset(modelos):
                         #Pasará solo si la bodega no tiene stock suficiente.
                         if cantidad_bandera > stock_inv_original:
                             cantidad_bandera -= stock_inv_original
+                            if inv_respaldos.exists():
+                                for inv_r in inv_respaldos:
+                                    if inv_r.stock_disponible >= cantidad_bandera:
+                                        print(f'\nLa bodega:{inv_r.bodega.id} tenía {inv_r.stock_disponible}. Ahora tiene: ')
+                                        cantidad_camino += cantidad_bandera
+                                        stock = inv_r.stock_disponible - cantidad_bandera
+                                        inv_r.stock_disponible = stock
+                                        despacho = Orden_Despacho(bodega_recepcion=bodega,bodega_emisor=inv_r.bodega,estado_despacho=estados)
+                                        despacho.save()
+                                        despacho_id = Inventario.objects.get(bodega_recepcion=bodega,bodega_emisor=inv_r.bodega)
+                                        detalle_despacho = Detalle_Despacho(    
+                                            numero_orden=despacho_id,
+                                            producto=producto,
+                                            cantidad=cantidad_bandera
+                                        )
+                                        print('Stock Final de bodega: ')
+                                        print(inv_r.stock_disponible)
+                                        inventario.update(stock_en_espera=stock_inv_original)
+                                        inventario.update(stock_en_camino=cantidad_camino)
+                                        inv_r.save()
+                                        self.perform_create(serializer)
+                                        return JsonResponse({'Mensaje': 'Compra en camino (COD:01).'})
+                                    else:
+                                        print(f'\nLa bodega:{inv_r.bodega.id} tenía {inv_r.stock_disponible}, ahora tendrá 0')
+                                        print(inv_r.stock_disponible, cantidad_bandera)
+                                        despacho = Orden_Despacho(bodega_recepcion=bodega,bodega_emisor=inv_r.bodega,estado_despacho=estados)
+                                        despacho.save()
+                                        despacho_id = Inventario.objects.get(bodega_recepcion=bodega,bodega_emisor=inv_r.bodega)
+                                        detalle_despacho = Detalle_Despacho(    
+                                            numero_orden=despacho_id,
+                                            producto=producto,
+                                            cantidad=inv_r.stock_disponible
+                                        )
+                                        detalle_despacho.save()
+                                        cantidad_camino += inv_r.stock_disponible
+                                        inv_r.stock_disponible = 0
+                                        inv_r.save()
+                                        cantidad_bandera -= inv_r.stock_disponible
+                                        print('\nCantidad luego:')
+                                        print(cantidad_bandera)
+                                return JsonResponse({'Mensaje': 'Las bodegas de respaldo no tienen suficiente stock (COD:01).'}) 
+                            else:
+                                return JsonResponse({'Mensaje': 'Las bodegas de respaldo no tienen suficiente stock (COD:02).'}) 
+                        
+                        #Pasará solo si la bodega tiene stock para la compra
+                        elif cantidad_bandera <= stock_inv_original:
+                            stock = stock_inv_original - cantidad_bandera
+                            inventario.update(stock_disponible=stock)
+                            inventario.update(stock_en_espera=cantidad_comprada)
+                            self.perform_create(serializer)
+
+
+                    #Esto pasará solo si no existe el producto dentro del "inventario" de la bodega.
+                    #Esto pasará solo si no existe el producto dentro del "inventario" de la bodega.
+                    else:
+                        print('\nNo existe inventario para el producto en la bodega, creandolo. Buscando en otras bodegas')
+                        create_inv = Inventario(
+                            producto=producto,
+                            descripcion='Cantidades del producto ' + producto.nombre_producto + ' en la bodega ' + bodega.nombre_bodega,
+                            stock_disponible=0,
+                            stock_en_camino=0,
+                            stock_en_espera=0,
+                            stock_vendido=0,
+                            stock_devolucion=0,
+                            bodega=bodega,
+                        )
+                        create_inv.save()
+                        inventario = Inventario.objects.filter(bodega=bodega, producto=producto)
+
+                        if inv_respaldos.exists():
                             for inv_r in inv_respaldos:
                                 if inv_r.stock_disponible >= cantidad_bandera:
                                     print(f'\nLa bodega:{inv_r.bodega.id} tenía {inv_r.stock_disponible}. Ahora tiene: ')
@@ -104,7 +176,7 @@ def create_serializer_and_viewset(modelos):
                                     inventario.update(stock_en_camino=cantidad_camino)
                                     inv_r.save()
                                     self.perform_create(serializer)
-                                    return JsonResponse({'Mensaje': 'Compra en camino (COD:01).'})
+                                    return JsonResponse({'Mensaje': 'Compra en camino (COD:03).'})
                                 else:
                                     print(f'\nLa bodega:{inv_r.bodega.id} tenía {inv_r.stock_disponible}, ahora tendrá 0')
                                     print(inv_r.stock_disponible, cantidad_bandera)
@@ -123,69 +195,9 @@ def create_serializer_and_viewset(modelos):
                                     cantidad_bandera -= inv_r.stock_disponible
                                     print('\nCantidad luego:')
                                     print(cantidad_bandera)
-                            return JsonResponse({'Mensaje': 'Las bodegas no tienen suficiente stock (COD:01).'}) 
-                        #Pasará solo si la bodega tiene stock para la compra
-                        elif cantidad_bandera <= stock_inv_original:
-                            stock = stock_inv_original - cantidad_bandera
-                            inventario.update(stock_disponible=stock)
-                            inventario.update(stock_en_espera=cantidad_comprada)
-                            self.perform_create(serializer)
-                            return JsonResponse({'Mensaje': 'Compra en camino (COD:02).'}) 
-                    #Esto pasará solo si no existe el producto dentro del "inventario" de la bodega.
-                    else:
-                        print('\nNo existe inventario para el producto en la bodega, creandolo. Buscando en otras bodegas')
-                        create_inv = Inventario(
-                            producto=producto,
-                            descripcion='Cantidades del producto',
-                            stock_disponible=0,
-                            stock_en_camino=0,
-                            stock_en_espera=0,
-                            stock_vendido=0,
-                            stock_devolucion=0,
-                            bodega=bodega,
-                        )
-                        create_inv.save()
-                        inventario = Inventario.objects.filter(bodega=bodega, producto=producto)
-                        for inv_r in inv_respaldos:
-                            if inv_r.stock_disponible >= cantidad_bandera:
-                                print(f'\nLa bodega:{inv_r.bodega.id} tenía {inv_r.stock_disponible}. Ahora tiene: ')
-                                cantidad_camino += cantidad_bandera
-                                stock = inv_r.stock_disponible - cantidad_bandera
-                                inv_r.stock_disponible = stock
-                                despacho = Orden_Despacho(bodega_recepcion=bodega,bodega_emisor=inv_r.bodega,estado_despacho=estados)
-                                despacho.save()
-                                despacho_id = Inventario.objects.get(bodega_recepcion=bodega,bodega_emisor=inv_r.bodega)
-                                detalle_despacho = Detalle_Despacho(    
-                                    numero_orden=despacho_id,
-                                    producto=producto,
-                                    cantidad=cantidad_bandera
-                                )
-                                print('Stock Final de bodega: ')
-                                print(inv_r.stock_disponible)
-                                inventario.update(stock_en_espera=stock_inv_original)
-                                inventario.update(stock_en_camino=cantidad_camino)
-                                inv_r.save()
-                                self.perform_create(serializer)
-                                return JsonResponse({'Mensaje': 'Compra en camino (COD:03).'})
-                            else:
-                                print(f'\nLa bodega:{inv_r.bodega.id} tenía {inv_r.stock_disponible}, ahora tendrá 0')
-                                print(inv_r.stock_disponible, cantidad_bandera)
-                                despacho = Orden_Despacho(bodega_recepcion=bodega,bodega_emisor=inv_r.bodega,estado_despacho=estados)
-                                despacho.save()
-                                despacho_id = Inventario.objects.get(bodega_recepcion=bodega,bodega_emisor=inv_r.bodega)
-                                detalle_despacho = Detalle_Despacho(    
-                                    numero_orden=despacho_id,
-                                    producto=producto,
-                                    cantidad=inv_r.stock_disponible
-                                )
-                                detalle_despacho.save()
-                                cantidad_camino += inv_r.stock_disponible
-                                inv_r.stock_disponible = 0
-                                inv_r.save()
-                                cantidad_bandera -= inv_r.stock_disponible
-                                print('\nCantidad luego:')
-                                print(cantidad_bandera)
-                        return JsonResponse({'Mensaje': 'Las bodegas no tienen suficiente stock (COD:02).'})
+                            return JsonResponse({'Mensaje': 'Las bodegas de respaldo no tienen suficiente stock (COD:03).'})
+                        else:
+                            return JsonResponse({'Mensaje': 'Las bodegas de respaldo no tienen suficiente stock (COD:04).'})
                 
                 print('\nObjeto creado\n')
                 self.perform_create(serializer)
@@ -197,6 +209,7 @@ def create_serializer_and_viewset(modelos):
 
         def update(self, request, *args, **kwargs):
             instancia = self.get_object() #Obtener la instancia que está siendo actualizada
+
             # Realizar acciones adicionales aquí antes de la actualización
             if nombre_modelo == 'Inventario':
                 producto = request.data.get('producto')
@@ -244,6 +257,35 @@ def get_dynamic_viewsets():
         'User',
         'ContentType',
         'Session',
+        'Sexo',
+        'Continente',
+        'Pais',
+        'Comuna',
+        'Talla_Ropa',
+        'Tipo_Pago',
+        'Tipo_Tarjeta',
+        'Banco',
+        'Tipo_Proovedor',
+        'Tipo_Cuenta',
+        'Proovedor',
+        'Promocion',
+        'Cupon_Descuento',
+        'Cliente_Cupon_Descuento',
+        'Categoria',
+        'Edad_Ropa',
+        'Tipo_Estado',
+        'Tipo_Impreso',
+        'Tipo_Pedido',
+        'Tipo_Envio',
+        'Tipo_Hogar',
+        'Direcciones_Clientes',
+        'Procesar_Pagos',
+        'Recepcion_Pagos',
+        'Rechazo_Pagos',
+        'Envio_Orden',
+        'Ciudad',
+        'Color',
+        'Ventas_Mes'
     ]
     viewsets_dict = {}
     # Iterar sobre todos los modelos de Django en la aplicación
