@@ -1,0 +1,114 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href='{% static "css/main.css" %}'>
+    <link rel="stylesheet" href='{% static "css/bootstrap.css" %}'>
+    <link rel="stylesheet" href='{% static "css/bootstrap.min.css" %}'>
+    <link rel="stylesheet" href='{% static "css/_variables.scss" %}'>
+    <link rel="stylesheet" href='{% static "css/_bootswatch.scss" %}'>
+
+    <script src="https://use.fontawesome.com/fe459689b4.js"></script>
+    <title>Tienda de Ropa</title>
+</head>
+
+<body>
+      <div class="site-wrapper">
+        <header>
+            <!-- Código del encabezado -->
+            <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#">Tienda</a>
+        
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarColor01">
+                    <ul class="navbar-nav me-auto">
+
+                      <li class="nav-item">
+                        <a class="nav-link active" href="#">Inicio</a>
+                      </li>
+
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Productos</a>
+                      </li>
+
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Carrito</a>
+                      </li>
+
+                      {% if sesion %}
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Mi Cuenta</a>
+                      </li>
+                      {% endif %}
+                    
+                    </ul>
+        
+                    <form class="d-flex">
+                      <input class="form-control me-sm-2" type="search" placeholder="Search">
+                      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Buscar</button>
+                    </form>
+        
+                  </div>
+                </div>
+              </nav>
+        </header>
+
+        <div class="content">
+            {% block cuerpo %}
+            <!-- Contenido de la página -->
+            {% endblock %}
+        </div>
+
+        <footer class="footer">
+            <!-- Código del pie de página -->
+            <div class="footer">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <h3 class="footer-heading"><span>DATOS DE CONTACTO</span></h3>
+                      <ul class="list-unstyled">
+                          <li><a>Tienda de Ropa</a><hr>
+                            Dirección Central: Calle Imaginaria #123<br>
+                            Teléfono: (+56 9) 1234 5678 - (+56 2) 1234 1234</a></li>
+                          <li><a>Email: tienda@ropa.cl</a></li>
+                          <li><a>Facebook: facebook.com/tienda_ropa</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-lg-4">
+                        <h3 class="footer-heading"><span>Últimas Ofertas</span></h3>
+                    </div>
+                    <div class="col-lg-4">
+                        <h3 class="footer-heading"><span>ENLACES RÁPIDOS</span></h3>
+                        <ul class="list-unstyled">
+                            <li><a href="">Nuestro Catálogo</a></li><hr>
+                            <li><a href="">Nuestro Soporte</a></li><hr>
+                            <li><a href="">Nuestras Sucursales</a></li>
+                        </ul>
+                    </div>
+                  </div>
+          
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="copyright">
+                          <p>
+                              Copyright &copy;<script>document.write(new Date().getFullYear());</script> | Creado por <a>Dronet Devs</a>
+                              </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </footer>
+    </div>
+</body>
+
+
+</html>
